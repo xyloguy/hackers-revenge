@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+	
+	<style>
+	  .battles {
+		  height: 850px;
+		  overflow: hidden;
+	  }
+	  .battles ul {
+		  /*animation: scrollUp 60s infinite normal;*/
+		  font-size: 13px;
+		  color: #ccc;
+		  list-style-type: none;
+		  list-style-position: inside;
+		  
+	  }
+	  .battles strong {
+		  display: block;
+	  }
+
+	  .battles li {
+		  padding: .4em;
+		  text-transform: uppercase;
+	  }
+	  
+	  .battles li strong:nth-child(odd) {
+		  color: #00cc00;
+	  }
+
+	  .battles li strong:nth-child(even) {
+		  color: #0000ff;
+	  }
+	  
+
+	  @keyframes scrollUp {
+		  from {
+			  -webkit-transform: translateY(0%);
+              transform: translateY(0%);
+		  }
+		  to {
+			  -webkit-transform: translateY(-100%);
+              transform: translateY(-100%);
+		  }
+	  }
+
+	  .lb-results {
+		  font-size: 18px;
+	  }
+	  body {
+		  background: black;
+		  color: white;
+		  font-family: 'Press Start 2P';
+	  }
+	  th {
+		  color: white;
+	  }
+
+	  #sidebar {
+		  position: absolute;
+		  top: 0;
+	  }
+
+	  .container {
+		  left: 400px;
+		  margin: 40px;
+		  position:absolute;
+	  }
+
+	  tbody tr td {
+		  text-transform: uppercase;
+	  }
+	  
+	  tbody tr:nth-child(odd) {
+		  color: #ff0;
+	  }
+	  tbody tr:nth-child(even) {
+		  color: #ffab00;
+	  }
+
+	  tbody tr:nth-child(1) {
+		  font-size: 28px;
+		  color: #00ff00;
+		  animation: fadey 1s infinite alternate;
+	  }
+
+	  tbody tr:nth-child(2) {
+		  font-size: 22px;
+		  color: #00ff00;
+		  animation: fadey2 2s infinite alternate;
+	  }
+	  
+	  tbody tr:nth-child(3) {
+		  font-size: 18px;
+		  color: #00ff00;
+		  animation: fadey3 4s infinite alternate;
+	  }
+
+
+	  
+	  @keyframes fadey3 {
+		  from {
+			  color: #00ff00;
+		  }
+		  to {
+			  color: #00aa00;
+		  }
+	  }
+
+	  @keyframes fadey {
+		  from {
+			  color: #007ee4;
+		  }
+		  to {
+			  color: #0000ff;
+		  }
+	  }
+
+	  @keyframes fadey2 {
+		  from {
+			  color: #ff0000;
+		  }
+		  to {
+			  color: #ee0505;
+		  }
+	  }
+
+
+	  thead {
+		  text-transform: uppercase;
+	  }
+
+	  .status {
+		  font-size: 12px;
+		  color: #ddd;
+	  }
+
+	  .tally {
+		  font-size: 13px;
+		  color: #ddd;
+	  }
+
+
+	  
+	  h1 {
+		  text-transform: uppercase;
+		  font-size: 24px;
+	  }
+
+	  .header-msg {
+		  color: #0f0;
+	  }
+
+	  div.game-info {
+		  margin-top: 10px;
+	  }
+	  div.game-info li {
+		  list-style-type: none;
+		  list-style-position: inside;
+		  text-transform: uppercase;
+	  }
+	</style>
+
+	
+    <title>MX Hackathon</title>
+  </head>
+
+  <body>
+	<div id="sidebar">
+	  <img src="sidebar.png" />
+	</div>
+	
+	<div class="container">
+	  <div class="row header-msg ">
+	  </div>
+	  <div class="row">
+		  <div class="col-lg-8">
+			<h1>top 10</h1>
+			<div class="lb-results">
+			  <table class="table">
+				<thead>
+				  <tr>
+					<th scope="col">#</th>
+					<th scope="col" class="center">Player</th>
+					<th scope="col">Score</th>
+<!--					<th scope="col">Last Battle</th> -->
+				  </tr>
+				</thead>
+				<tbody id="lb-body">
+				</tbody>
+			  </table>			  
+			</div>
+
+		  </div>
+		  <div class="col-lg-4">
+			<h1>recent contenders</h1>
+			<div class="battles">
+			  <ul id="battle-body">
+			  </ul>
+			</div>
+			<div class="game-info">
+			  <ul>
+				<li> Time Remaining: <span id="countdown">&nbsp;</span></li>
+				<li> Contenders in Queue:  <span id="queue-size">&nbsp;</span></li>
+			  </ul>
+			</div>
+		  </div>
+	  </div>
+
+	  
+	</main>
+    <!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"  crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
+	<script src="js/leaderboard.js"></script>
+  </body>
+</html>

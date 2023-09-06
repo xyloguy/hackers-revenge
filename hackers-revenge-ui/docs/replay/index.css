@@ -1,0 +1,46 @@
+body {
+	background: #010101;
+	overflow: hidden;
+}
+
+#sidebar {
+	position: absolute;
+	top: 0;
+}
+
+
+#replay {
+	top:50px;
+	left: 400px;
+	position: absolute;
+	margin: 0;
+}
+
+#replay_stage {
+	width: 1800px;
+	height: 1080px;
+}
+
+main {
+	padding: 10px;
+}
+
+
+
+/* div.player_code_display { */
+/* 	float: left; */
+/* 	width: 48%; */
+/* 	font-family: "Lucida Console", monospace; */
+/* 	border: 2px solid black; */
+/* 	margin: 5px; */
+/* 	background: #979797; */
+/* } */
+
+/* div#p1_code_display { */
+/* 	color: blue; */
+/* } */
+
+/* div#p2_code_display { */
+/* 	color: red; */
+/* } */
+

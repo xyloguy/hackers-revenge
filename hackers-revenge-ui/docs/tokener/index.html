@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+	  .alert {
+		  font-size: 24px;
+	  }
+    </style>
+	
+    <title>MX Hackathon Entry</title>
+  </head>
+
+  <body>
+
+	<div class="container">
+	  <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+		<div class="row align-items-center g-lg-5 py-5">
+		  <div class="col-lg-7 text-center text-lg-start">
+			<h1 class="display-4 fw-bold lh-1 mb-3">MX Hackathon Entry</h1>
+			<p class="col-lg-10 fs-4">Press big blue button to get a new entry token</p>
+		  </div>
+		  <div class="col-md-10 mx-auto col-lg-5">
+			<form class="p-4 p-md-5 border rounded-3 bg-light" id="entry-form">
+			  <button class="w-100 btn btn-lg btn-primary" id="signup-btn">Get Token</button>
+			  <hr class="my-4">
+		  </div>
+		  <div id="alert-container">
+		  </div>
+		</div>
+	  </div>
+	</div>	  
+
+	
+    <!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"  crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
+        <script src="js/qrcode.min.js"></script>
+	<script>
+	  var alertPlaceholder = document.getElementById('alert-container')
+	  var alertTrigger = document.getElementById('signup-btn')
+      var qre = document.createElement('div');
+      var qrcode = new QRCode(qre, { });
+
+	  function alert(message, type, qr) {
+		  var wrapper = document.createElement('div')
+		  wrapper.innerHTML = '<div id="alert" class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<div id="qrcode"></div><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
+		  alertPlaceholder.append(wrapper)
+          if (qr)  {
+		      document.getElementById('qrcode').append(qre)
+		  }
+      }
+	  
+	  if (alertTrigger) {
+		  alertTrigger.addEventListener('click', function () {
+			  alertPlaceholder.innerHTML = '';
+			  event.preventDefault();
+			  event.stopPropagation();
+			  $.ajax({
+				  url: "/mx/api/token"
+			  }).done(function(data) {
+				  var t = data.token;
+				  var n = data.name;
+                  qrcode.makeCode("https://hackersrevenge.mx.com/?token="+t);
+				  alert("Your entry token is <br/><b>"+t+"</b><br/>Your program name is <br/>'<b>"+n+"</b>'", "success", true);
+			  }).fail(function() {
+                          qrcode.clear();
+				  alert("Failed to register, try again.", "danger", false);
+			  })
+		  })
+	  }
+	</script>
+	
+  </body>
+</html>
