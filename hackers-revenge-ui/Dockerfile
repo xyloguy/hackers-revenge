@@ -1,4 +1,4 @@
 FROM nginx:latest
 COPY ./docs /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY default.conf.template /etc/nginx/templates/default.conf.template
 COPY auth.conf /etc/nginx/auth.conf

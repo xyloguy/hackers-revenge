@@ -1,6 +1,6 @@
 limit_req_zone $binary_remote_addr zone=api_limit:10m rate=1r/s;
 server {
-    listen 80;
+    listen $LISTEN_PORT;
     index index.html;
 
     server_name frontend;
@@ -24,14 +24,14 @@ server {
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-HackersRevenge-Event "mxmax";
-        proxy_pass https://my-super-cool-domain/program;
+        proxy_pass $SERVER_HOST/program;
     }
     location /api/mxmax/test_round {
         limit_req zone=api_limit;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-HackersRevenge-Event "mxmax";
-        proxy_pass https://my-super-cool-domain/test_round_p2existing;
+        proxy_pass $SERVER_HOST/test_round_p2existing;
     }
 
 
@@ -41,14 +41,14 @@ server {
         limit_req zone=api_limit;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_pass https://my-super-cool-domain/program;
+        proxy_pass $SERVER_HOST/program;
 
     }
     location /api/test_round {
         limit_req zone=api_limit;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_pass https://my-super-cool-domain/test_round;
+        proxy_pass $SERVER_HOST/test_round;
     }
 
     # MX only stuff.
@@ -68,27 +68,27 @@ server {
         location /mx/api/token {
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_pass https://my-super-cool-domain/token;
+            proxy_pass $SERVER_HOST/token;
         }
         location /mx/api/leaderboard {
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_pass https://my-super-cool-domain/leaderboard;
+            proxy_pass $SERVER_HOST/leaderboard;
         }
         location /mx/api/journal {
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_pass https://my-super-cool-domain/journal;
+            proxy_pass $SERVER_HOST/journal;
         }
         location /mx/api/contenders {
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_pass https://my-super-cool-domain/contenders;
+            proxy_pass $SERVER_HOST/contenders;
         }
         location /mx/api/status {
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_pass https://my-super-cool-domain/status;
+            proxy_pass $SERVER_HOST/status;
         }
     }
 }

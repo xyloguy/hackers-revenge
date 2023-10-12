@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(version: 2022_05_17_222138) do
 
   create_table "battles", force: :cascade do |t|
-    t.bigint "program1_id"
+    t.integer "program1_id"
     t.bigint "program2_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

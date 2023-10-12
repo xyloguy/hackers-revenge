@@ -1,0 +1,16 @@
+services:
+  server:
+    image: "hackers-revenge-server:latest"
+    volumes:
+      - ./hackers-revenge-server/db:/app/db:rw
+    # command: ["bin/setup"]
+    command: ["sh", "run.sh"]
+  redis:
+    image: "redis:alpine"
+  ui:
+    image: "hackers-revenge-ui:latest"
+    ports:
+      - "8080:80"
+    environment:
+      LISTEN_PORT: "80"
+      SERVER_HOST: "http://server:3000"
