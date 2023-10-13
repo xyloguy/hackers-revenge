@@ -1,5 +1,5 @@
 defaults: &defaults
-  url: redis://localhost:6379
+  url: redis://redis:6379
   concurrency: 1
 
 development:
