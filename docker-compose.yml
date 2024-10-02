@@ -1,3 +1,5 @@
+name: hackers-revenge
+
 services:
   server:
     image: "ruby:2.7"
