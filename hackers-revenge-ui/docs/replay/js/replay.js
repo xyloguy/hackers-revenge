@@ -21,7 +21,7 @@ const ANIMATION_SPEED = 30;
 const ANIMATION_FRAME_TIME = 5;
 
 // maximum number of frames per cycle
-const MAX_CYCLES = 10;
+const MAX_CYCLES = 25;
 
 // amount of time to wait before proceeding;
 const END_WAIT_TIME = 5;

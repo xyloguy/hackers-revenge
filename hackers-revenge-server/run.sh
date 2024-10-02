@@ -1,13 +1,12 @@
 #!/bin/bash
 
-## Run setup
-#bin/setup &
+bin/setup
 
 ## Run rails web server
-bin/start_web &
+bundle exec rails s -b [::] &
 
 ## Run sidekiq
-bin/start_worker &
+bundle exec sidekiq -q default &
 
 # Wait for any process to exit
 wait

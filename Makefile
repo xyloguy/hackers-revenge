@@ -1,17 +1,13 @@
-all: initialize server ui build
+up:
+	docker compose up -d
 
-initialize:
-	cp hackers-revenge-server/config/database.yml.sample hackers-revenge-server/config/database.yml
-	cp hackers-revenge-server/config/sidekiq.yml.sample hackers-revenge-server/config/sidekiq.yml
+down:
+	docker compose down
 
-server:
-	docker build -t hackers-revenge-server hackers-revenge-server/
-
-ui:
-	docker build -t hackers-revenge-ui hackers-revenge-ui/
-
-build:
-	docker run -it hackers-revenge-server bin/setup
+restart:
+	docker compose run server bin/rails restart
 
 reset:
 	rm -f hackers-revenge-server/db/development.sqlite3
+	make up
+
