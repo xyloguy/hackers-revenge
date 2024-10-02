@@ -10,6 +10,11 @@ server {
         root /usr/share/nginx/html/www;
     }
 
+    location /healthy {
+        return 200 'success';
+        add_header Content-Type text/plain;
+    }
+
     # API endpoints for public facing areas
     location /api/program {
         limit_req zone=api_limit;

@@ -1,7 +1,8 @@
 name: hackers-revenge
-
 services:
   server:
+    environment:
+      MAX_PROGRAMS_PER_PLAYER: 10
     image: "ruby:2.7"
     volumes:
       - ./hackers-revenge-server/:/app
@@ -9,8 +10,22 @@ services:
       - ./hackers-revenge-server/vendor:/usr/local/bundle
     working_dir: /app
     command: ["sh", "run.sh"]
+    healthcheck:
+      test: curl -f http://server:3000/healthy || exit 1
+      interval: 30s
+      retries: 10
+      start_period: 45s
+      timeout: 3s
+    restart: on-failure
   redis:
     image: "redis:alpine"
+    healthcheck:
+      test: redis-cli ping | grep PONG
+      start_period: 15s
+      interval: 10s
+      timeout: 1s
+      retries: 3
+    restart: on-failure
   ui:
     image: "nginx:latest"
     volumes:
@@ -22,3 +37,13 @@ services:
     environment:
       LISTEN_PORT: "80"
       SERVER_HOST: "http://server:3000"
+    depends_on:
+      server:
+        condition: service_healthy
+    healthcheck:
+      test: curl -f http://ui:80/healthy
+      start_period: 15s
+      interval: 10s
+      retries: 3
+      timeout: 3s
+    restart: on-failure

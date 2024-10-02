@@ -1,5 +1,5 @@
 class ProgramController < ApplicationController
-  MAX_PROGRAMS_PER_PLAYER = 8
+  MAX_PROGRAMS_PER_PLAYER = Integer(ENV['MAX_PROGRAMS_PER_PLAYER']  || 8)
   GENERIC_AUTH_ERROR = "Invalid token".freeze
 
   before_action :find_player
