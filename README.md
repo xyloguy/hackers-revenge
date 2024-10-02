@@ -15,11 +15,10 @@ Working to make this easier.
 3. Run `make ui` to build the frontend nginx docker container
 4. Run `make build` to do initial migration for server
 5. Run `docker compose up` to run the server, ui, and sidekiq
-6. Run `chown $USER:$USER hackers-revenge-server/db/development.sqlite3`
-7. Go to `localhost:8080/mx/token` and click the generate token (username: beta, password: yolo) <--- these are set in the hackers-revenge-ui/auth.conf
-8. Connect to the `hackers-revenge-server/db/development.sqlite3` database using dbeaver or cli
-9. Run `SELECT * FROM players;` to see the `id` of the token/player you generated
-10. RUN `UPDATE players set email = 'whatever@domain.gom' where token = '{token}';` // email is a required field (for now)
-11. Go to `localhost:8080/mxmax` to the instructions page
-12. Input your token, create/submit your program.
-13. Go to `localhost:8080/mx/replay` to see random battles of programs
+6. Go to `http://localhost/admin/token` and click the generate token (username: beta, password: yolo) <--- these are set in the hackers-revenge-ui/auth.conf you can generate your own credentials by opening htpasswd_gen.html in a web browser.
+7. (OPTIONAL) Run `chown $USER:$USER hackers-revenge-server/db/development.sqlite3`
+8. (OPTIONAL) Connect to the `hackers-revenge-server/db/development.sqlite3` database using dbeaver or cli
+9. (OPTIONAL) Run `SELECT * FROM players;` to see the `id` of the token/player you generated
+10. Go to `http://localhost/` to the instructions page
+11. Input your token, create/submit your program.
+13. Go to `http://localhost/admin/replay` to see random battles of programs

@@ -18,7 +18,7 @@
 	  }
     </style>
 	
-    <title>MX Hackathon Entry</title>
+    <title>HACKERS REVENGE</title>
   </head>
 
   <body>
@@ -27,7 +27,7 @@
 	  <div class="container col-xl-10 col-xxl-8 px-4 py-5">
 		<div class="row align-items-center g-lg-5 py-5">
 		  <div class="col-lg-7 text-center text-lg-start">
-			<h1 class="display-4 fw-bold lh-1 mb-3">MX Hackathon Entry</h1>
+			<h1 class="display-4 fw-bold lh-1 mb-3">Hackathon Entry</h1>
 			<p class="col-lg-10 fs-4">Press big blue button to get a new entry token</p>
 		  </div>
 		  <div class="col-md-10 mx-auto col-lg-5">
@@ -69,14 +69,14 @@
 			  event.preventDefault();
 			  event.stopPropagation();
 			  $.ajax({
-				  url: "/mx/api/token"
+				  url: "/admin/api/token"
 			  }).done(function(data) {
 				  var t = data.token;
 				  var n = data.name;
-                  qrcode.makeCode("https://hackersrevenge.mx.com/?token="+t);
+          //qrcode.makeCode("https://hackersrevenge.mx.com/?token="+t);
 				  alert("Your entry token is <br/><b>"+t+"</b><br/>Your program name is <br/>'<b>"+n+"</b>'", "success", true);
 			  }).fail(function() {
-                          qrcode.clear();
+          //qrcode.clear();
 				  alert("Failed to register, try again.", "danger", false);
 			  })
 		  })

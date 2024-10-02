@@ -1,25 +1,6 @@
 require "rails_helper"
 
 ::RSpec.describe ::Player, :type => :model do
-  describe "validations" do
-    describe "email_unchanged" do
-      subject { create(:player, :email => orig_email) }
-      let(:new_email) { "new@example.com" }
-
-      before { subject.email = new_email }
-
-      context "when changing from nil" do
-        let(:orig_email) { nil }
-        it { is_expected.to be_valid }
-      end
-
-      context "when changing from existing" do
-        let(:orig_email) { "orig@example.com" }
-        it { is_expected.to_not be_valid }
-      end
-    end
-  end
-
   describe "callbacks" do
     describe "default_points" do
       subject { described_class.create!(:token => "abc", :name => "Happy Fox") }
@@ -35,33 +16,6 @@ require "rails_helper"
       let(:losses) { 1000 }
       subject { create(:player, :wins => wins, :ties => ties, :losses => losses) }
       it { expect(subject.score).to eq((wins * 2) + ties) }
-    end
-
-    describe "dont_erase_phone" do
-      subject { create(:player, :phone => old_phone) }
-      let(:old_phone) { "888-888-8888" }
-      let(:new_phone) { "999-999-9999" }
-
-      before { subject.update!(:phone => new_phone) }
-
-      context "when changing from nil" do
-        let(:old_phone) { nil }
-        it { expect(subject.phone).to eq(new_phone) }
-      end
-
-      context "when changing to new" do
-        it { expect(subject.phone).to eq(new_phone) }
-      end
-
-      context "when changing to empty" do
-        let(:new_phone) { "" }
-        it { expect(subject.phone).to eq(old_phone) }
-      end
-
-      context "when changing to nil" do
-        let(:new_phone) { nil }
-        it { expect(subject.phone).to eq(old_phone) }
-      end
     end
   end
 

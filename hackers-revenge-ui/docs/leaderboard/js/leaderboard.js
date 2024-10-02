@@ -48,26 +48,26 @@ function populateContenders(data) {
 
 function populateStatus(data) {
 
-	if ("remaining_seconds" in data) {
-		rem = data.remaining_seconds;
+	// if ("remaining_seconds" in data) {
+	// 	rem = data.remaining_seconds;
 
-		if (rem < 0) {
-			rem = 0
-		}
+	// 	if (rem < 0) {
+	// 		rem = 0
+	// 	}
 		
-		label = "" + rem + " s";
+	// 	label = "" + rem + " s";
 		
-		if (rem > (60 * 60)) {
-			hours = Math.floor(rem / (60 * 60));
-			label = "" + hours + " hrs";
-		}
-		else if (rem > 60) {
-			mins = Math.floor(rem / 60);
-			label = "" + mins + " mins";
-		}
+	// 	if (rem > (60 * 60)) {
+	// 		hours = Math.floor(rem / (60 * 60));
+	// 		label = "" + hours + " hrs";
+	// 	}
+	// 	else if (rem > 60) {
+	// 		mins = Math.floor(rem / 60);
+	// 		label = "" + mins + " mins";
+	// 	}
 
-		$( "#countdown" ).html(label);
-	}
+	// 	$( "#countdown" ).html(label);
+	// }
 
 	if ("matches" in data) {
 		$(" #queue-size" ).html("" + (data.matches.queued + data.matches.running));
@@ -94,7 +94,7 @@ function getLB() {
 	$.ajax({
 		cache: false,
 		dataType: 'json',
-		url: "/mx/api/leaderboard",
+		url: "/admin/api/leaderboard",
 		success: function (data) {
 			populateLB(data);
 		}
@@ -105,7 +105,7 @@ function getContenders() {
 		$.ajax({
 		cache: false,
 		dataType: 'json',
-		url: "/mx/api/contenders",
+		url: "/admin/api/contenders",
 		success: function (data) {
 			populateContenders(data.contenders);
 		}
@@ -117,7 +117,7 @@ function getStatus() {
 		$.ajax({
 		cache: false,
 		dataType: 'json',
-		url: "/mx/api/status",
+		url: "/admin/api/status",
 		success: function (data) {
 			populateStatus(data);
 		}

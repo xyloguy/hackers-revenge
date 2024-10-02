@@ -16,9 +16,9 @@ const CELL_BUFFER = CANVAS_SIZE/128;
 const BOMB_CHAR = "\uD83D\uDD25";
 
 // number of seconds it should take to display a program
-const ANIMATION_SPEED = 60;
+const ANIMATION_SPEED = 30;
 // length of animation frame in milliseconds
-const ANIMATION_FRAME_TIME = 10;
+const ANIMATION_FRAME_TIME = 5;
 
 // maximum number of frames per cycle
 const MAX_CYCLES = 10;
@@ -695,7 +695,7 @@ document.addEventListener('run_queue_empty',
 							  $.ajax({
 								  cache: false,
 								  dataType: 'json',
-								  url: '/mx/api/leaderboard',
+								  url: '/admin/api/leaderboard',
 								  success: function (data) {
 									  var ajaxes = [];
 									  for (var i = 0 ; i < data.leaders.length ; i++) {
@@ -704,7 +704,7 @@ document.addEventListener('run_queue_empty',
 											  ajaxes.push(
 												  $.ajax({
 													  dataType: 'json',
-													  url: "/mx/api/journal/" + d.last_battle_id + "/" + r,
+													  url: "/admin/api/journal/" + d.last_battle_id + "/" + r,
 												  }));
 									  }
 
@@ -756,7 +756,7 @@ else {
 		ajaxes.push(
 			$.ajax({
 				dataType: 'json',
-				url: "/mx/api/journal/" + test[0] + "/" + r,
+				url: "/admin/api/journal/" + test[0] + "/" + r,
 			}));
 	}
 

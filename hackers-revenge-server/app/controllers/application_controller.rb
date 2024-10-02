@@ -6,10 +6,7 @@ class ApplicationController < ActionController::API
 private
 
   def mxmax_event?
-    request.headers["X-HackersRevenge-Event"] == "mxmax"
+    true
   end
 
-  def show_real_names?
-    true # mxmax_event?
-  end
 end

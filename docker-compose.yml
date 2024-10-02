@@ -1,16 +1,21 @@
 services:
   server:
-    image: "hackers-revenge-server:latest"
+    image: "hackers-revenge-server"
     volumes:
+      - ./hackers-revenge-server/:/app
       - ./hackers-revenge-server/db:/app/db:rw
     # command: ["bin/setup"]
     command: ["sh", "run.sh"]
   redis:
     image: "redis:alpine"
   ui:
-    image: "hackers-revenge-ui:latest"
+    image: "nginx:latest"
+    volumes:
+      - ./hackers-revenge-ui/docs:/usr/share/nginx/html
+      - ./hackers-revenge-ui/default.conf.template:/etc/nginx/templates/default.conf.template
+      - ./hackers-revenge-ui/auth.conf:/etc/nginx/auth.conf
     ports:
-      - "8080:80"
+      - "80:80"
     environment:
       LISTEN_PORT: "80"
       SERVER_HOST: "http://server:3000"

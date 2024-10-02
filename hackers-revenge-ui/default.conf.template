@@ -5,36 +5,10 @@ server {
 
     server_name frontend;
 
-    location /mxmax {
-        index move.html index.html;
-        alias /usr/share/nginx/html/mxmax;
-    }
-
-
     location / {
         index move.html index.html;
-        #alias /usr/share/nginx/html/mxmax;
-        root /usr/share/nginx/html/mxmax;
+        root /usr/share/nginx/html/www;
     }
-
-
-    # API endpoints for public facing areas
-    location /api/mxmax/program {
-        limit_req zone=api_limit;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-HackersRevenge-Event "mxmax";
-        proxy_pass $SERVER_HOST/program;
-    }
-    location /api/mxmax/test_round {
-        limit_req zone=api_limit;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-HackersRevenge-Event "mxmax";
-        proxy_pass $SERVER_HOST/test_round_p2existing;
-    }
-
-
 
     # API endpoints for public facing areas
     location /api/program {
@@ -51,41 +25,41 @@ server {
         proxy_pass $SERVER_HOST/test_round;
     }
 
-    # MX only stuff.
-    location /mx/ {
-        auth_basic "MX hackathon tools";
+    # Admin only stuff.
+    location /admin/ {
+        auth_basic "Hackathon Tools";
         auth_basic_user_file /etc/nginx/auth.conf;
 
-        location /mx/token {
+        location /admin/token {
             alias /usr/share/nginx/html/tokener;
         }
-        location /mx/replay {
+        location /admin/replay {
             alias /usr/share/nginx/html/replay;
         }
-        location /mx/leaderboard {
+        location /admin/leaderboard {
             alias /usr/share/nginx/html/leaderboard;
         }
-        location /mx/api/token {
+        location /admin/api/token {
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_pass $SERVER_HOST/token;
         }
-        location /mx/api/leaderboard {
+        location /admin/api/leaderboard {
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_pass $SERVER_HOST/leaderboard;
         }
-        location /mx/api/journal {
+        location /admin/api/journal {
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_pass $SERVER_HOST/journal;
         }
-        location /mx/api/contenders {
+        location /admin/api/contenders {
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_pass $SERVER_HOST/contenders;
         }
-        location /mx/api/status {
+        location /admin/api/status {
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_pass $SERVER_HOST/status;

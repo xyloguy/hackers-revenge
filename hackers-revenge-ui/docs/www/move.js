@@ -129,7 +129,7 @@ function submitActions(object) {
 
 	$.ajax({
 		type: "POST",
-		url: "/api/mxmax/program",
+		url: "/api/program",
 		data: stringify_object,
 		dataType: "json",
 		contentType: 'application/json',
@@ -268,7 +268,7 @@ function submitTest(opponent) {
 
 	$.ajax({
 		type: "POST",
-		url: "/api/mxmax/test_round",
+		url: "/api/test_round",
 		data: stringify_object,
 		dataType: "json",
 		contentType: 'application/json',

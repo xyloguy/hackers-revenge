@@ -3,7 +3,7 @@ namespace :db do
   task :list_players => :environment do
     ::Rails.logger = ::ActiveSupport::Logger.new($stdout)
     ::Player.order(:place, :score => :desc).each do |p|
-      ::Rails.logger.info "#{p.place.inspect} | #{p.score} | #{p.token} | #{p.real_name} | #{p.name} | #{p.email} | #{p.phone}"
+      ::Rails.logger.info "#{p.place.inspect} | #{p.score} | #{p.token} | #{p.name}"
     end
   end
 end

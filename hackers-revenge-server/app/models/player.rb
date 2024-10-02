@@ -10,18 +10,13 @@ class Player < ApplicationRecord
 
   validates :token, :presence => true
   validates :name, :presence => true
-  validates :email, :format => { :with => /\A[^\s]+@[^\s]+\z/ }, :allow_nil => true # allow nil because player is initially created without an email; it must be provided every time a program is uploaded
-  validates :phone, :format => { :with => /\d/ }, :allow_nil => true # allow nil because player is initially created without a phone; it must be provided every time a program is uploaded
   validates :wins, :presence => true
   validates :losses, :presence => true
   validates :ties, :presence => true
   validates :score, :presence => true
 
-  validate :email_unchanged, :on => :update
-
   before_validation :default_points, :on => :create
   before_validation :adjust_score
-  before_validation :dont_erase_phone, :on => :update
 
   scope :contenders, lambda { joins(:last_program).order("programs.created_at DESC") }
   scope :top_ten, lambda { where.not(:place => nil).order(:place).limit(10) }
@@ -69,13 +64,13 @@ class Player < ApplicationRecord
     player2.last_battle = battle
   end
 
-  def self.to_contenders_hash(count, show_real_names: false)
-    { :contenders => contenders.limit(count).map { |p| p.to_hash_for_contender(:show_real_names => show_real_names) } }
+  def self.to_contenders_hash(count)
+    { :contenders => contenders.limit(count).map { |p| p.to_hash_for_contender } }
   end
 
-  def self.to_leaderboard_hash(show_real_names: false)
+  def self.to_leaderboard_hash
     {
-      :leaders => top_ten.map { |p| p.to_hash_for_leader(:show_real_names => show_real_names) },
+      :leaders => top_ten.map { |p| p.to_hash_for_leader },
       :remaining_seconds => ::TournamentInfo.instance.remaining_seconds
     }
   end
@@ -112,8 +107,8 @@ class Player < ApplicationRecord
     self.score = 0
   end
 
-  def to_hash_for_contender(show_real_names: false)
-    contender_name = (show_real_names && real_name).presence || name
+  def to_hash_for_contender
+    contender_name = name
 
     {
       :name => contender_name,
@@ -123,9 +118,9 @@ class Player < ApplicationRecord
     }
   end
 
-  def to_hash_for_leader(show_real_names: false)
-    pl_name = (show_real_names && real_name).presence || name
-    op_name = (show_real_names && last_opponent&.real_name).presence || last_opponent&.name
+  def to_hash_for_leader
+    pl_name = name
+    op_name = last_opponent&.name
 
     {
       :name => pl_name,
@@ -151,13 +146,5 @@ private
     self.losses ||= 0
     self.ties ||= 0
     self.score ||= 0
-  end
-
-  def dont_erase_phone
-    self.phone = phone_was if phone_changed? && phone.blank?
-  end
-
-  def email_unchanged
-    errors.add(:email, "cannot change") if email_changed? && email_was.present?
   end
 end

@@ -35,7 +35,6 @@ ActiveRecord::Schema.define(version: 2022_05_17_222138) do
   create_table "players", force: :cascade do |t|
     t.string "token"
     t.string "name"
-    t.string "email"
     t.integer "wins"
     t.integer "losses"
     t.integer "ties"
@@ -44,11 +43,7 @@ ActiveRecord::Schema.define(version: 2022_05_17_222138) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "last_program_id"
-    t.string "phone"
     t.integer "place"
-    t.boolean "contact"
-    t.string "real_name"
-    t.index ["email"], name: "index_players_on_email", unique: true
     t.index ["last_battle_id"], name: "index_players_on_last_battle_id"
     t.index ["last_program_id"], name: "index_players_on_last_program_id"
     t.index ["name"], name: "index_players_on_name", unique: true

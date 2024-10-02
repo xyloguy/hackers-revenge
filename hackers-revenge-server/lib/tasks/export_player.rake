@@ -7,7 +7,7 @@ namespace :db do
     ::ActiveRecord::Base.logger.level = 1
 
     p = ::Player.find(id)
-    player_hash = p.as_json(:only => [:token, :name, :email, :phone])
+    player_hash = p.as_json(:only => [:token, :name])
     program_hash = p.last_program.instructions.as_json(:only => [:line_number, :opcode, :argument])
     hash = {
       "player" => player_hash,

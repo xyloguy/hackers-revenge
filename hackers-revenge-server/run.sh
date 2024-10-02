@@ -1,5 +1,8 @@
 #!/bin/bash
 
+## Run setup
+#bin/setup &
+
 ## Run rails web server
 bin/start_web &
 
