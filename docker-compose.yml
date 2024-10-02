@@ -2,7 +2,7 @@ name: hackers-revenge
 services:
   server:
     environment:
-      MAX_PROGRAMS_PER_PLAYER: 10
+      MAX_PROGRAMS_PER_PLAYER: 12
     image: "ruby:2.7"
     volumes:
       - ./hackers-revenge-server/:/app
@@ -14,7 +14,7 @@ services:
       test: curl -f http://server:3000/healthy || exit 1
       interval: 30s
       retries: 10
-      start_period: 45s
+      start_period: 30s
       timeout: 3s
     restart: on-failure
   redis:
