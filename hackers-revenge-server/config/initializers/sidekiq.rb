@@ -1,4 +1,4 @@
-sidekiq_config = ::YAML.load_file(::Rails.root.join("config", "sidekiq.yml")).fetch(::Rails.env)
+sidekiq_config = ::YAML.load_file(::Rails.root.join("config", "sidekiq.yml"), aliases: true).fetch(::Rails.env)
 
 ::Sidekiq.configure_server do |config|
   config.redis = sidekiq_config.deep_symbolize_keys

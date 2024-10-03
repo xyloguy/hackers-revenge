@@ -7,8 +7,6 @@
 ::TournamentInfo.instance
 
 ::Rails.logger.info "Seeding DB with sample programs"
-
-::Player.where("name LIKE 'Built-In: %'").destroy_all
 ::Player.where("name LIKE 'MX %'").destroy_all
 
 player_1 = ::Player.create(:place => 3, :wins => 0, :losses => 6, :token => ::Player.random_token, :name => "MX R3ckl3ss")

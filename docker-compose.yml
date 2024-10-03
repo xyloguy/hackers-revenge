@@ -2,8 +2,13 @@ name: hackers-revenge
 services:
   server:
     environment:
+      RAILS_ENV: production
       MAX_PROGRAMS_PER_PLAYER: 12
-    image: "ruby:2.7"
+      DB_USER: root
+      DB_NAME: app
+      DB_PASSWORD: password
+      DB_HOST: db
+    image: "ruby:3.3"
     volumes:
       - ./hackers-revenge-server/:/app
       - ./hackers-revenge-server/db:/app/db:rw
@@ -16,7 +21,25 @@ services:
       retries: 10
       start_period: 30s
       timeout: 3s
+    depends_on:
+      db:
+        condition: service_healthy
     restart: on-failure
+  db:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: app
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    healthcheck:
+      test: mysqladmin ping -h localhost
+      timeout: 20s
+      retries: 10
+      start_period: 30s
+    volumes:
+      - mysql_data:/var/lib/mysql
   redis:
     image: "redis:alpine"
     healthcheck:
@@ -47,3 +70,6 @@ services:
       retries: 3
       timeout: 3s
     restart: on-failure
+
+volumes:
+  mysql_data:

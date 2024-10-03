@@ -6,6 +6,6 @@ down:
 
 reset:
 	make down
-	rm -f hackers-revenge-server/db/development.sqlite3
+	rm -f hackers-revenge-server/config/master.key
 	make up
 

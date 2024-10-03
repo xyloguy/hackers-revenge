@@ -20,7 +20,7 @@ Bundler.require(*Rails.groups)
 module HackersRevengeServer
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.2
+    config.load_defaults 7.2
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
@@ -39,5 +39,7 @@ module HackersRevengeServer
 
     # Custom error pages so we can respond with proper json response (in prod).
     config.exceptions_app = routes
+
+    config.hosts << "server"
   end
 end

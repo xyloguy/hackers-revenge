@@ -1,6 +1,5 @@
 defaults: &defaults
   url: redis://redis:6379
-  concurrency: 1
 
 development:
   <<: *defaults
