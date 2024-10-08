@@ -17,11 +17,12 @@ const BOMB_CHAR = "\uD83D\uDD25";
 
 // number of seconds it should take to display a program
 const ANIMATION_SPEED = 25;
+
 // length of animation frame in milliseconds
 const ANIMATION_FRAME_TIME = 3;
 
 // maximum number of frames per cycle
-const MAX_CYCLES = 50;
+const MAX_CYCLES = 10;
 
 // amount of time to wait before proceeding;
 const END_WAIT_TIME = 4;
