@@ -5,7 +5,13 @@ class TestRoundP2existingController < ApplicationController
   before_action :find_program2
 
   def create
-    @round = ::Round.build_for_test(create_params)
+    create_params
+    @round = ::Round.build_for_test(
+      :player1_name => @player1_name,
+      :player2_name => @player2_name,
+      :program1_code => @program1_code,
+      :program2_code => @program2_code,
+    )
     if @round.run
       render :json => @round.to_journal_hash(:filter_p2 => filter_p2?)
     else
@@ -16,12 +22,10 @@ class TestRoundP2existingController < ApplicationController
 private
 
   def create_params
-    {
-      :player1_name => params.require(:program1).require(:player_name),
-      :player2_name => @player2.name,
-      :program1_code => params.require(:program1).permit("code" => [:opcode, :arg]).require("code"),
-      :program2_code => @program2.to_code_array_for_build
-    }
+      @player2_name = @player2.name
+      @program2_code = @program2.to_code_array_for_build
+      @player1_name = params.dig(:program1, :player_name)
+      @program1_code = params.require(:program1).permit(:player_name, :code => [:opcode, :arg]).require(:code)
   end
 
   def filter_p2?

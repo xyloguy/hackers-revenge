@@ -11,11 +11,7 @@ class Round < ApplicationRecord
   validates :program2_start_ip, :presence => true
   validates :first_player, :inclusion => { :in => [1, 2] }
 
-  enum :winner => {
-    :tie => 0,
-    :winner1 => 1,
-    :winner2 => 2
-  }
+  enum :winner, {tie: 0, winner1: 1, winner2: 2}
 
   attr_reader :cycles # no longer stored in the DB; call the run method to generate
 
