@@ -7,14 +7,14 @@
 ::TournamentInfo.instance
 
 ::Rails.logger.info "Seeding DB with sample programs"
-::Player.where("name LIKE 'MX %'").destroy_all
+::Player.where("name LIKE 'HCF %'").destroy_all
 
-player_1 = ::Player.create(:place => 3, :wins => 0, :losses => 6, :token => ::Player.random_token, :name => "MX R3ckl3ss")
-player_2 = ::Player.create(:place => 2, :wins => 2, :losses => 4, :token => ::Player.random_token, :name => "MX Sc4r3dy C4t")
-player_3 = ::Player.create(:place => 1, :wins => 6, :losses => 0, :token => ::Player.random_token, :name => "MX Sl0w F1r3")
-player_4 = ::Player.create(:place => 2, :wins => 4, :losses => 2, :token => ::Player.random_token, :name => "MX Sc4nn3r")
+#player_1 = ::Player.create(:place => 3, :wins => 0, :losses => 6, :token => ::Player.random_token, :name => "HCF R3ckl3ss")
+player_2 = ::Player.create(:place => 2, :wins => 2, :losses => 4, :token => ::Player.random_token, :name => "HCF Sc4r3dy C4t")
+player_3 = ::Player.create(:place => 1, :wins => 6, :losses => 0, :token => ::Player.random_token, :name => "HCF Sl0w F1r3")
+player_4 = ::Player.create(:place => 2, :wins => 4, :losses => 2, :token => ::Player.random_token, :name => "HCF Sc4nn3r")
 
-code_1 = [{ :opcode => "HCF", :arg => nil }]
+#code_1 = [{ :opcode => "HCF", :arg => nil }]
 code_2 = [
   { :opcode => "NOOP", :arg => nil },
   { :opcode => "JUMP", :arg => -1 }
@@ -42,7 +42,7 @@ code_4 = [
   { :opcode => "HCF", :arg => nil }
 ]
 
-::Program.build(player_1, code_1).save!
+#::Program.build(player_1, code_1).save!
 ::Program.build(player_2, code_2).save!
 ::Program.build(player_3, code_3).save!
 ::Program.build(player_4, code_4).save!

@@ -64,6 +64,11 @@ class RunningProgram
     when "SWAP" then run_swap
     when "INC" then run_inc
     when "ADD" then run_add
+    when "SUBTRACT" then run_subtract
+    when "DIVIDE" then run_divide
+    when "MULTIPLY" then run_multiply
+    when "GT" then run_gt
+    when "LT" then run_lt
     when "NEGATE" then run_negate
     when "JUMP" then run_jump
     when "JUMPZ" then run_jumpz
@@ -102,8 +107,59 @@ private
   def run_add
     return ::Cycle::STATUS_DIED_STACK_UNDERFLOW if stack.size < 2
     value = stack.pop + stack.pop
+    value %= 256
     return ::Cycle::STATUS_DIED_ARG_OVERFLOW if value < MIN_ARG_VALUE || value > MAX_ARG_VALUE
     stack << value
+    inc_ip
+  end
+
+  def run_subtract
+    return ::Cycle::STATUS_DIED_STACK_UNDERFLOW if stack.size < 2
+    arg1 = stack.pop
+    arg2 = stack.pop
+    value = arg2 - arg1
+    return ::Cycle::STATUS_DIED_ARG_OVERFLOW if value < MIN_ARG_VALUE || value > MAX_ARG_VALUE
+    stack << value
+    inc_ip
+  end
+
+  def run_divide
+    return ::Cycle::STATUS_DIED_STACK_UNDERFLOW if stack.empty?
+    arg2 = arg
+    if arg2 == 0
+      pass
+    else
+      arg1 = stack.pop
+      value = arg1 / arg2
+      return ::Cycle::STATUS_DIED_ARG_OVERFLOW if value < MIN_ARG_VALUE || value > MAX_ARG_VALUE
+      stack << value
+    end
+    inc_ip
+  end
+
+  def run_multiply
+    return ::Cycle::STATUS_DIED_STACK_UNDERFLOW if stack.empty?
+    arg2 = arg
+    if arg2 == 0
+      pass
+    else
+      arg1 = stack.pop
+      value = arg1 * arg2
+      return ::Cycle::STATUS_DIED_ARG_OVERFLOW if value < MIN_ARG_VALUE || value > MAX_ARG_VALUE
+      stack << value
+    end
+    inc_ip
+  end
+
+  def run_gt
+    return ::Cycle::STATUS_DIED_STACK_UNDERFLOW if stack.empty?
+    stack << Integer(stack.pop > arg)
+    inc_ip
+  end
+
+  def run_lt
+    return ::Cycle::STATUS_DIED_STACK_UNDERFLOW if stack.empty?
+    stack << Integer(stack.pop < arg)
     inc_ip
   end
 

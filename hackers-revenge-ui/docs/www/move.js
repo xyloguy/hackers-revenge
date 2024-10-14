@@ -247,13 +247,13 @@ function submitTest(opponent) {
 		test_program.player_token = token;
 		break;
 	case 'g3':
-		test_program.player_name = 'MX Sc4nn3r';
+		test_program.player_name = 'HCF Sc4nn3r';
 		break;
 	case 'g2':
-		test_program.player_name = "MX Sl0w F1r3";
+		test_program.player_name = "HCF Sl0w F1r3";
 		break;
 	default:
-		test_program.player_name = 'MX Sc4r3dy C4t';
+		test_program.player_name = 'HCF Sc4r3dy C4t';
 	}
 	
 	const test_object = {
@@ -497,6 +497,11 @@ const INSTRUCTIONS = {
 	SWAP: false,
 	INC: true,
 	ADD: false,
+	SUBTRACT: false,
+	DIVIDE: true,
+	MULTIPLY: true,
+	GT: true,
+	LT: true,
 	NEGATE: false,
 	JUMP: true,
 	JUMPZ: true,

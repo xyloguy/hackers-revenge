@@ -1,0 +1,6 @@
+*
+!conf
+!conf/.gitignore
+!www
+!www/.gitignore
+!.gitignore

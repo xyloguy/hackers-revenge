@@ -4,7 +4,6 @@ var ending = false;
 function populateLB(data) {
 
 	ending = (data.remaining_seconds < (10 * 60) && data.remaining_seconds > 1);
-
 	var elements = $.map(data.leaders,
 						 function(val, i) {
 
@@ -19,7 +18,7 @@ function populateLB(data) {
 							 var battle = status + " against '" + (ending ? "???????" : val.opponent_name) + "' at " + time;
 							 var stats = "wins: " + val.wins + " ties: " + val.ties + " losses: " + val.losses;
 							 var name = val.name;
-							 if (!name.match(/^MX/)) {
+							 if (!name.match(/^HCF/)) {
 								 name = ending ? "???????????????" : val.name;
 							 }
 
@@ -48,26 +47,26 @@ function populateContenders(data) {
 
 function populateStatus(data) {
 
-	// if ("remaining_seconds" in data) {
-	// 	rem = data.remaining_seconds;
+	if ("remaining_seconds" in data) {
+		rem = data.remaining_seconds;
 
-	// 	if (rem < 0) {
-	// 		rem = 0
-	// 	}
+		if (rem < 0) {
+			rem = 0
+		}
 		
-	// 	label = "" + rem + " s";
+		label = "" + rem + " s";
 		
-	// 	if (rem > (60 * 60)) {
-	// 		hours = Math.floor(rem / (60 * 60));
-	// 		label = "" + hours + " hrs";
-	// 	}
-	// 	else if (rem > 60) {
-	// 		mins = Math.floor(rem / 60);
-	// 		label = "" + mins + " mins";
-	// 	}
+		if (rem > (60 * 60)) {
+			hours = Math.floor(rem / (60 * 60));
+			label = "" + hours + " hrs";
+		}
+		else if (rem > 60) {
+			mins = Math.floor(rem / 60);
+			label = "" + mins + " mins";
+		}
 
-	// 	$( "#countdown" ).html(label);
-	// }
+		$( "#countdown" ).html(label);
+	}
 
 	if ("matches" in data) {
 		$(" #queue-size" ).html("" + (data.matches.queued + data.matches.running));
@@ -94,7 +93,7 @@ function getLB() {
 	$.ajax({
 		cache: false,
 		dataType: 'json',
-		url: "/admin/api/leaderboard",
+		url: "../api/leaderboard",
 		success: function (data) {
 			populateLB(data);
 		}
@@ -105,7 +104,7 @@ function getContenders() {
 		$.ajax({
 		cache: false,
 		dataType: 'json',
-		url: "/admin/api/contenders",
+		url: "../api/contenders",
 		success: function (data) {
 			populateContenders(data.contenders);
 		}
@@ -117,7 +116,7 @@ function getStatus() {
 		$.ajax({
 		cache: false,
 		dataType: 'json',
-		url: "/admin/api/status",
+		url: "../api/status",
 		success: function (data) {
 			populateStatus(data);
 		}
@@ -126,9 +125,9 @@ function getStatus() {
 
 
 
-setInterval(getLB,10 * 1000);
+setInterval(getLB,20 * 1000);
 setInterval(getContenders,10 * 1000);
-setInterval(getStatus, 1000);
+setInterval(getStatus, 5 * 1000);
 
 getLB();
 getContenders();

@@ -567,14 +567,15 @@ function Replayer(replay, next) {
 				var inst = replayer._mem[addr];
 
 				var op = inst.opcode;
-				var arg = inst.arg;
+				var arg = ""; //inst.arg;
 
 				if (op === null || op === undefined) {
 					op = "NIL";
 				}
-				if (arg === null || arg === undefined) {
-					arg = "";
-				}
+
+				// if (arg === null || arg === undefined) {
+				// 	arg = "";
+				// }
 
 				if (op == "HCF") {
 					op = "HALT/CATCH-FIRE";

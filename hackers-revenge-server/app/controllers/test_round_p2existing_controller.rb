@@ -1,5 +1,5 @@
 class TestRoundP2existingController < ApplicationController
-  GUARDIAN_NAMES = ["MX R3ckl3ss", "MX Sc4r3dy C4t", "MX Sl0w F1r3", "MX Sc4nn3r"].freeze
+  GUARDIAN_NAMES = ["HCF R3ckl3ss", "HCF Sc4r3dy C4t", "HCF Sl0w F1r3", "HCF Sc4nn3r"].freeze
 
   before_action :find_player2
   before_action :find_program2

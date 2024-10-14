@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
 		  crossorigin="anonymous">
-	<title>HACKERS REVENGE</title>
+	<title>HALT/CATCH FIRE</title>
   </head>
   <link rel="stylesheet" href="move.css">
   <body>
 	<div class="container">
 	  <div id="intro" class="row spaced">
-	  	<h1>HACKER'S REVENGE</h1>
+	  	<h1>HALT/CATCH FIRE</h1>
 		<div class="accordion" id="accordion">
 		  <div class="card">
 			<div class="card-header" id="headingMission">
@@ -27,7 +27,7 @@
 			<div id="mission" class="collapse show" aria-labelledby="headingMission" data-parent="#accordion">
 			  <div class="card-body">
 				<p>
-				  In <i>Hacker's Revenge</i> your task is to take
+				  In <i>HALT/CATCH FIRE</i> your task is to take
 				  revenge on your fellow engineers by writing simple
 				  programs to defeat your opponent in a tiny,
 				  memory-based arena. Your programs will consist of a
@@ -53,8 +53,8 @@
 			<div id="code" class="collapse" aria-labelledby="headingCode" data-parent="#accordion">
 			  <div class="card-body">
 				<p>
-				  As a hacker in <i>Hacker's Revenge</i> you have a
-				  pallete of 20 instructions in order to execute your
+				  As a hacker in <i>HALT/CATCH FIRE</i> you have a
+				  pallet of instructions in order to execute your
 				  strategy of engineering dominance. Your program runs
 				  in a memory space of 256 locations shared with your
 				  opponent. Your program will run against opponents in
@@ -78,7 +78,7 @@
 				  to <b>16 items</b>. If you attempt to push more than
 				  16 items to the stack, or pop an item from an empty
 				  stack, your program will terminate and your opponent
-				  will win. The only data type in Hacker's Revenge is
+				  will win. The only data type in HALT/CATCH FIRE is
 				  a number that can be a maximum of 255 and a minimum
 				  of -255.
 				</p>
@@ -130,10 +130,10 @@
 					  fire.
 					</li>
 					<li>
-					  Instructions: there are 20 instructions
+					  Instructions: there are an assortment instructions
 					  available to you. Some instructions take an
-					  argument; all arguments are numbers from -255 to
-					  255.
+					  argument; all arguments are integers in range -255 to
+					  255 inclusive.
 					</li>
 				  </ul>
 				</p>
@@ -254,7 +254,7 @@
 					</tr>
 					<tr>
 					  <td>
-						Add the value <i>n</i> to the number on the top of
+						Add the value <i>n</i> to the item on the top of
 						the stack.
 					  </td>
 					</tr>
@@ -267,6 +267,52 @@
 						Pop two items from the stack, add them and
 						push the result back to the top.
 					  </td>
+					</tr>
+
+					<tr>
+						<th>SUBTRACT</th>
+					</tr>
+					<tr>
+						<td>
+							Pop two items from the stack, subtract them and
+							push the result back to the top.
+						</td>
+					</tr>
+
+					<tr>
+						<th>DIVIDE <i>n</i></th>
+					</tr>
+					<tr>
+						<td>
+							Pop top item from the top of stack and divide it by <i>n</i> and push the result back to the stack. If <i>n</i> is 0, then the stack is unaffected
+						</td>
+					</tr>
+
+					<tr>
+						<th>MULTIPLY <i>n</i></th>
+					</tr>
+					<tr>
+						<td>
+							Pop top item from the top of stack and multiply it by <i>n</i> and push the result back to the stack. If <i>n</i> is 0, then the stack is unaffected
+						</td>
+					</tr>
+
+					<tr>
+						<th>GT <i>n</i></th>
+					</tr>
+					<tr>
+						<td>
+							Checks if item on top of stack is greater than <i>n</i> and puts 1 on stack if true, or 0 if false.
+						</td>
+					</tr>
+
+					<tr>
+						<th>LT <i>n</i></th>
+					</tr>
+					<tr>
+						<td>
+							Checks if item on top of stack is less than <i>n</i> and puts 1 on stack if true, or 0 if false.
+						</td>
 					</tr>
 
 					<tr>
@@ -551,24 +597,20 @@
 			<div id="examples" class="collapse" aria-labelledby="headingExamples" data-parent="#accordion">
 			  <div class="card-body">
 				<p>
-				  The Hacker's Revenge system is initially protected
-				  by 4 guardian programs. Through much sneakiness
+				  The HALT/CATCH FIRE system is initially protected
+				  by guardian programs. Through much sneakiness
 				  we have been able obtain parts of the code of the
 				  guardians for you.
 				</p>
-				<p>
-				  <strong>MX R3CKL3SS</strong>
-				  <code>HCF</code>
-				</p>
 
 				<p>
-				  <strong>MX SC4R3DY C4T</strong>
+				  <strong>HCF SC4R3DY C4T</strong>
 				  <code>NOOP</code>
 				  <code>JUMP ???</code>
 				</p>
 
 				<p>
-				  <strong>MX SL0W F1R3</strong>
+				  <strong>HCF SL0W F1R3</strong>
 				  <code>PUSH ???</code>
 				  <code>INC 1</code>
 				  <code>DUPE</code>
@@ -578,7 +620,7 @@
 				</p>
 
 				<p>
-				  <strong>MX SC4NN3R</strong>
+				  <strong>HCF SC4NN3R</strong>
 				  <code>PUSH ??</code>
 				  <code>DUPE</code>
 				  <code>???? 1</code>
@@ -618,12 +660,13 @@
 			<p>
 			  tip: you can start a line with # for comments.
 			</p>
-			<textarea id="text_mode_box" style="width: 100%; max-width: 100%;" rows=20></textarea>
+			<textarea id="text_mode_box" style="width: 100%; max-width: 100%;" rows=24></textarea>
 		  </div>
 
 		  <img id="popup-close" src="close.svg" onclick="closeProgramList()">
           <ul id="program-list" class="list-group">
 			<li class="list-group-item">ADD <button class="btn btn-dark float-end" onclick="addAction('ADD');">+</button></li>
+			<li class="list-group-item">SUBTRACT <button class="btn btn-dark float-end" onclick="addAction('SUBTRACT');">+</button></li>
             <li class="list-group-item">COPY <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
 			<li class="list-group-item">DECSKIP <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
             <li class="list-group-item">DROP <button class="btn btn-dark float-end" onclick="addAction('DROP');">+</button></li>
@@ -632,6 +675,10 @@
 			<li class="list-group-item">HCF <button class="btn btn-dark float-end" onclick="addAction('HCF');">+</button></li>
 			<li class="list-group-item">ICOPY <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
             <li class="list-group-item">INC <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
+            <li class="list-group-item">DIVIDE <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
+            <li class="list-group-item">MULTIPLY <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
+            <li class="list-group-item">GT <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
+            <li class="list-group-item">LT <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
 			<li class="list-group-item">INCARG <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
             <li class="list-group-item">JUMP <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
             <li class="list-group-item">JUMPG <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
@@ -656,9 +703,9 @@
 			<button id="testDropdown" class="btn btn-dark btn-lg btn-secondary dropdown-toggle" data-toggle="dropdown">Test <span>Program</span></button>
 			<div class="dropdown-menu" aria-labelledby="testDropdown">
 			  <a class="dropdown-item" onclick="submitTest('last')"     >... against your last program</a>
-			  <a class="dropdown-item" onclick="submitTest('g1')"       >... against MX SC4R3DY C4T</a>
-			  <a class="dropdown-item" onclick="submitTest('g2')"       >... against MX SL0W F1R3</a>
-			  <a class="dropdown-item" onclick="submitTest('g3')"       >... against MX SC4NN3R</a>
+			  <a class="dropdown-item" onclick="submitTest('g1')"       >... against HCF SC4R3DY C4T</a>
+			  <a class="dropdown-item" onclick="submitTest('g2')"       >... against HCF SL0W F1R3</a>
+			  <a class="dropdown-item" onclick="submitTest('g3')"       >... against HCF SC4NN3R</a>
 			</div>
 		  </div>
 		  <button class="btn btn-dark btn-lg" onclick="toggleTextMode(this)" id="text_mode_btn">Use Text Mode</button>

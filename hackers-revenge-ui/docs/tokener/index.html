@@ -27,7 +27,7 @@
 	  }
     </style>
 	
-    <title>HACKERS REVENGE</title>
+    <title>HALT/CATCH FIRE - token</title>
   </head>
 
   <body>
@@ -36,7 +36,7 @@
 	  <div class="container col-xl-10 col-xxl-8 px-4 py-5">
 		<div class="row align-items-center g-lg-5 py-5">
 		  <div class="col-lg-7 text-center text-lg-start">
-			<h1 class="display-4 fw-bold lh-1 mb-3">HACKERS REVENGE</h1>
+			<h1 class="display-4 fw-bold lh-1 mb-3">HALT/CATCH FIRE</h1>
 			<p class="col-lg-10 fs-4 noprint">Press big blue button to get a new entry token</p>
 		  </div>
 		  <div class="col-md-10 mx-auto col-lg-5 noprint">
@@ -83,7 +83,7 @@
 			  }).done(function(data) {
 				  var t = data.token;
 				  var n = data.name;
-				  var url = "https://hackersrevenge.mx.com/";
+				  var url = "https://hcf.xyloguy.org/";
 				  qrcode.makeCode(url+"?token="+t);
 				  alert("Your entry token is <br/><b>"+t+"</b><br/>Your program name is <br/>'<b>"+n+"</b>'<p><b>"+url+"</b></p>", "success", true);
 				  window.print()
