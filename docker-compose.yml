@@ -55,13 +55,12 @@ services:
     image: "nginx:latest"
     volumes:
       - ./hackers-revenge-ui/docs:/usr/share/nginx/html:ro
-      - ./hackers-revenge-ui/default.conf:/etc/nginx/conf.d/app.conf:ro
-#      - ./hackers-revenge-ui/ssl.conf:/etc/nginx/conf.d/app.conf:ro
+      - ./hackers-revenge-ui/default.conf:/etc/nginx/templates/default.conf.template:ro
       - ./htpasswd:/usr/share/nginx/htpasswd:ro
       - ./certbot/www:/var/www/certbot:ro
     ports:
       - "80:80"
-#      - "443:443"
+      - "443:443"
     environment:
       DOMAIN_NAME: "hcf.xyloguy.org"
       SERVER_HOST: "http://server:3000"

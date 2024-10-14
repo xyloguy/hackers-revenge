@@ -30,22 +30,10 @@ LICENSE MIT
 
 For this to work, you must:
 1.  Have a PUBLIC FACING DOMAIN, and server with port 80 open. 
-   1. pull the repo using git
-      2. update `htpasswd/*.conf` files
-      3. update `docker-compose.yml` file to set `DOMAIN_NAME` env to your domain name.
-      4. update `hackers-revenge-ui/default.conf`
-         ```
-         server_name _;
-         ;server_name $DOMAIN_NAME;
-         ```
-
-         becomes:
-
-         ```
-         ;server_name _;
-         server_name $DOMAIN_NAME;
-         ```
-      5. start the server `make up`
+   * pull the repo using git 
+   * update `htpasswd/*.conf` files 
+   * update `docker-compose.yml` file to set `DOMAIN_NAME` env to your domain name. 
+   * start the server `make up`
 2. Generate the certificates:
    * Run: `docker compose run --rm certbot certonly --webroot --webroot-path /var/www/certbot -d hcf.xyloguy.org --dry-run` (replace `hcf.xyloguy.org` with your domain)
    * When prompted enter your email or type "c" and pressing enter.
@@ -53,9 +41,13 @@ For this to work, you must:
    * Wait for the command to complete, if no errors occurred run the command without the `--dry-run` flag.
 3. Stop the server `make down`
 4. update the `docker-compose.yml` file to use the `ssl.conf` instead of `default.conf` under the `ui` configuration (ie uncomment the ssl.conf definition and comment out the default.conf configuration)
-    ```
-    #     - ./hackers-revenge-ui/default.conf:/etc/nginx/conf.d/app.conf:ro
-          - ./hackers-revenge-ui/ssl.conf:/etc/nginx/conf.d/app.conf:ro
+   change:
+   ```
+    - ./hackers-revenge-ui/default.conf:/etc/nginx/templates/default.conf.template:ro
+   ```
+   to:
+   ```
+   - ./hackers-revenge-ui/ssl.conf:/etc/nginx/templates/default.conf.template:ro
    ```
 5. Start the server `make up`
 6. Renew Certificates
