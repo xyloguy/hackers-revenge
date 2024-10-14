@@ -58,6 +58,7 @@ services:
       - ./hackers-revenge-ui/default.conf:/etc/nginx/templates/default.conf.template:ro
       - ./htpasswd:/usr/share/nginx/htpasswd:ro
       - ./certbot/www:/var/www/certbot:ro
+      - ./certbot/conf:/etc/nginx/ssl:ro
     ports:
       - "80:80"
       - "443:443"
