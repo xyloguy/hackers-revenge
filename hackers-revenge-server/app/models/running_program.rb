@@ -182,13 +182,15 @@ private
       dst_pos_before = (dst_pos + 255) % 256
       # spread fire to all neighboring fire
       while memory[dst_pos_before]&.hcf?
-        dst_pos_before = (dst_pos_before + 255) % 256
+        dst_pos_before += 255
+        dst_pos_before %= 256
       end
 
       dst_pos_after = (dst_pos + 1) % 256
       # spread fire to all neighboring fire
       while memory[dst_pos_after]&.hcf?
-        dst_pos_after += (dst_pos_after + 1) % 256
+        dst_pos_after += 1
+        dst_pos_after %= 256
       end
       memory[dst_pos_before] = memory[dst_pos_after] = memory[dst_pos]
 
