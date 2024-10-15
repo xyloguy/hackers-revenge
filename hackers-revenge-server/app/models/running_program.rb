@@ -107,9 +107,8 @@ private
   def run_add
     return ::Cycle::STATUS_DIED_STACK_UNDERFLOW if stack.size < 2
     value = stack.pop + stack.pop
-    value %= 256
     return ::Cycle::STATUS_DIED_ARG_OVERFLOW if value < MIN_ARG_VALUE || value > MAX_ARG_VALUE
-    stack << value
+    stack << (value % 256)
     inc_ip
   end
 
@@ -119,7 +118,7 @@ private
     arg2 = stack.pop
     value = arg2 - arg1
     return ::Cycle::STATUS_DIED_ARG_OVERFLOW if value < MIN_ARG_VALUE || value > MAX_ARG_VALUE
-    stack << value
+    stack << (value % 256)
     inc_ip
   end
 
@@ -132,7 +131,7 @@ private
       arg1 = stack.pop
       value = arg1 / arg2
       return ::Cycle::STATUS_DIED_ARG_OVERFLOW if value < MIN_ARG_VALUE || value > MAX_ARG_VALUE
-      stack << value
+      stack << (value % 256)
     end
     inc_ip
   end
@@ -146,7 +145,7 @@ private
       arg1 = stack.pop
       value = arg1 * arg2
       return ::Cycle::STATUS_DIED_ARG_OVERFLOW if value < MIN_ARG_VALUE || value > MAX_ARG_VALUE
-      stack << value
+      stack << (value % 256)
     end
     inc_ip
   end
@@ -181,7 +180,16 @@ private
 
     if explosion
       dst_pos_before = (dst_pos + 255) % 256
+      # spread fire to all neighboring fire
+      while memory[dst_pos_before]&.hcf?
+        dst_pos_before = (dst_pos + 255) % 256
+      end
+
       dst_pos_after = (dst_pos + 1) % 256
+      # spread fire to all neighboring fire
+      while memory[dst_pos_after]&.hcf?
+        dst_pos_after = (dst_pos + 1) % 256
+      end
       memory[dst_pos_before] = memory[dst_pos_after] = memory[dst_pos]
 
       @wrotes = [wrote.dup, wrote.dup, wrote.dup]
@@ -270,7 +278,7 @@ private
 
   def run_negate
     return ::Cycle::STATUS_DIED_STACK_UNDERFLOW if stack.empty?
-    stack[-1] = 0 - stack[-1]
+    stack[-1] *= -1
     inc_ip
   end
 
