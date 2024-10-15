@@ -153,13 +153,13 @@ private
 
   def run_gt
     return ::Cycle::STATUS_DIED_STACK_UNDERFLOW if stack.empty?
-    stack << Integer(stack.pop > arg)
+    stack << (stack.pop > arg ? 1 : 0)
     inc_ip
   end
 
   def run_lt
     return ::Cycle::STATUS_DIED_STACK_UNDERFLOW if stack.empty?
-    stack << Integer(stack.pop < arg)
+    stack << (stack.pop < arg ? 1 : 0)
     inc_ip
   end
 
