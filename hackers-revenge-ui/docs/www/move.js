@@ -101,8 +101,8 @@ function submitActions(object) {
 		}
 	}
 
-	if (move_object.length > 24) {
-		alertFunction("No more than 24 instructions are allowed.");
+	if (move_object.length > 25) {
+		alertFunction("No more than 25 instructions are allowed.");
 		return
 	}
 	
@@ -229,8 +229,8 @@ function submitTest(opponent) {
 		return
 	}
 
-	if (move_object.length > 24) {
-		alertFunction("No more than 24 instructions are allowed.");
+	if (move_object.length > 25) {
+		alertFunction("No more than 25 instructions are allowed.");
 		return
 	}
 

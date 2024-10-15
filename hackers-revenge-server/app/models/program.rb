@@ -1,5 +1,5 @@
 class Program < ApplicationRecord
-  MAX_INSTRUCTIONS = 24
+  MAX_INSTRUCTIONS = 25
 
   belongs_to :player, :autosave => true
   has_many :instructions, -> { order(:line_number) }, :inverse_of => :program, :dependent => :delete_all, :after_add => :instruction_added, :index_errors => true
