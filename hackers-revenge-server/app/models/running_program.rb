@@ -366,9 +366,8 @@ private
 
     if inst_found.nil? || inst_found.opcode.nil? || inst_found.hcf?
       v += inc_val
-    else
-      v -= 1
     end
+    v -= 1
     stack << v
     inc_ip
   end
