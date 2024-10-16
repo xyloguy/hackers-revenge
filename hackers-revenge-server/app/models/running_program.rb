@@ -74,6 +74,7 @@ class RunningProgram
     when "JUMPZ" then run_jumpz
     when "JUMPG" then run_jumpg
     when "HCF" then run_hcf(inst)
+    when "USCAN" then run_uscan
     when "SCAN" then run_scan
     when "COPY" then run_copy
     when "ICOPY" then run_copy(:indirect => true)
@@ -331,6 +332,40 @@ private
     end
 
     @wrotes = [{ :addr => pos, :argument => memory[pos].argument }]
+
+    inc_ip
+  end
+
+  def run_uscan
+    return ::Cycle::STATUS_DIED_STACK_UNDERFLOW if stack.empty?
+    pos = (ip + stack[-1]) % 256
+    count = arg
+    inc_val = count
+    inst_found = nil
+
+    @read_addr_first = pos unless count.zero?
+    while count != 0
+      inst_found = memory[pos]
+      break unless inst_found.nil? || inst_found.opcode.nil?
+
+      if count.positive?
+        pos = (pos + 1) % 256 # ++pos
+        count -= 1
+      else
+        pos = (pos + 255) % 256 # --pos
+        count += 1
+      end
+    end
+    @read_addr_last = pos if @read_addr_first.present?
+
+    # Reverse first and last when scan was backwards.
+    if arg.negative?
+      @read_addr_first, @read_addr_last = @read_addr_last, @read_addr_first
+    end
+
+    if inst_found.nil? || inst_found.opcode.nil?
+      stack[-1] += inc_val
+    end
 
     inc_ip
   end
