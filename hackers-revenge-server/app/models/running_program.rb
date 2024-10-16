@@ -338,7 +338,8 @@ private
 
   def run_uscan
     return ::Cycle::STATUS_DIED_STACK_UNDERFLOW if stack.empty?
-    pos = (ip + stack[-1]) % 256
+    v = stack.pop
+    pos = (ip + v) % 256
     count = arg
     inc_val = count
     inst_found = nil
@@ -363,10 +364,12 @@ private
       @read_addr_first, @read_addr_last = @read_addr_last, @read_addr_first
     end
 
-    if inst_found.nil? || inst_found.opcode.nil?
-      stack[-1] += inc_val
+    if inst_found.nil? || inst_found.opcode.nil? || inst_found.hcf?
+      v += inc_val
+    else
+      v -= 1
     end
-
+    stack << v
     inc_ip
   end
 
