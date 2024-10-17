@@ -405,7 +405,7 @@ function Replayer(replay, next) {
 				
 				// draw a bomb
 				if (write.opcode == "HCF") {
-					ctx.font = "" + (.75 * SQUARE_SIZE) + "px helvetica";
+					ctx.font = "" + (.75 * SQUARE_SIZE) + "px helvetica, arial, sans-serif";
 					ctx.textBaseline = "hanging";
 					ctx.drawImage(FIRE_IMG, pos.x, pos.y);
 				}
@@ -445,7 +445,7 @@ function Replayer(replay, next) {
 			ctx.save();
 			ctx.translate(0, CANVAS_SIZE*.25);
 			ctx.textAlign='center';
-			ctx.font = "bold  " + (2 * SQUARE_SIZE) + 'px verdana';			
+			ctx.font = "bold  " + (2 * SQUARE_SIZE) + 'px verdana, arial, sans-serif';
 			ctx.fillText("TIE", CANVAS_SIZE/2, CANVAS_SIZE*.25);
 			ctx.restore();
 		}
@@ -471,9 +471,9 @@ function Replayer(replay, next) {
 			ctx.save();
 			ctx.translate(0, CANVAS_SIZE*.25);
 			ctx.textAlign='center';
-			ctx.font = "bold  " + (.8 * SQUARE_SIZE) + 'px verdana';
+			ctx.font = "bold  " + (.8 * SQUARE_SIZE) + 'px verdana, arial, sans-serif';
 			ctx.fillText(pname.toUpperCase(), CANVAS_SIZE/2, CANVAS_SIZE*.125);
-			ctx.font = "bold  " + (2 * SQUARE_SIZE) + 'px verdana';
+			ctx.font = "bold  " + (2 * SQUARE_SIZE) + 'px verdana, arial, sans-serif';
 			ctx.fillText("WINS", CANVAS_SIZE/2, CANVAS_SIZE*.25);
 			ctx.restore();
 		}
@@ -481,7 +481,7 @@ function Replayer(replay, next) {
 		ctx.save();
 		ctx.translate(SQUARE_SIZE/2, CANVAS_SIZE+(SQUARE_SIZE/2));
 		ctx.clearRect(0, 0, 2000, 200);
-		ctx.font = "bold " + (.6 * SQUARE_SIZE) + "px Helvetica";
+		ctx.font = "bold " + (.6 * SQUARE_SIZE) + "px helvetica, arial, sans-serif";
 		ctx.fillStyle = "#fff";
 		var cycle = replayer._current_journal.cycle.toLocaleString(
 			'en',
@@ -539,7 +539,7 @@ function Replayer(replay, next) {
 
 		}
 
-		ctx.font = "" + (.5 * SQUARE_SIZE) + "px Verdana";
+		ctx.font = "" + (.5 * SQUARE_SIZE) + "px verdana, arial, sans-serif";
 		ctx.fillText(status_label.toUpperCase(), CANVAS_SIZE/3, SQUARE_SIZE*.25);
 
 		ctx.restore();
@@ -568,7 +568,7 @@ function Replayer(replay, next) {
 				player = replayer._replay.program2;
 			}
 
-			ctx.font = "bold  " + (.6 * SQUARE_SIZE) + 'px verdana';
+			ctx.font = "bold  " + (.6 * SQUARE_SIZE) + 'px verdana, arial, sans-serif';
 			ctx.fillText(player.player_name.toUpperCase(), 0, 0);
 
 
@@ -592,10 +592,14 @@ function Replayer(replay, next) {
 					op = "HALT/CATCH-FIRE";
 				}
 
+				if (op == "USCAN") {
+					op = "SCAN";
+				}
+
 				if (addr == pc) {
-					ctx.font = "bold " + (.5 * SQUARE_SIZE) + "px verdana";
+					ctx.font = "bold " + (.5 * SQUARE_SIZE) + "px verdana, arial, sans-serif";
 				} else {
-					ctx.font = "" + (.5 * SQUARE_SIZE) + "px verdana";
+					ctx.font = "" + (.5 * SQUARE_SIZE) + "px verdana, arial, sans-serif";
 				}
 
 				var ppc = addr.toLocaleString(
@@ -645,7 +649,7 @@ function Replayer(replay, next) {
 
 					if ("cluster" in m && m.cluster) {
 						ctx.fillStyle = "#fff";
-						ctx.font = "bold 18px verdana";
+						ctx.font = "bold 18px verdana, arial, sans-serif";
 						ctx.fillText("*", sx, sy);
 					}
 				}

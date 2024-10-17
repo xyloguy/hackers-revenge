@@ -1,6 +1,7 @@
 body {
 	background: #010101;
 	overflow: hidden;
+	font-family: verdana, arial, sans-serif;
 }
 
 #replay {

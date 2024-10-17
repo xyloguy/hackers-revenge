@@ -182,14 +182,14 @@ private
     if explosion
       dst_pos_before = (dst_pos + 255) % 256
       # spread fire to all neighboring fire
-      while memory[dst_pos_before]&.hcf?
+      while memory[dst_pos_before]&.hcf? && Integer(ENV.fetch('UNLIMITED_FIRE_SPREAD', 0)) == 1
         dst_pos_before += 255
         dst_pos_before %= 256
       end
 
       dst_pos_after = (dst_pos + 1) % 256
       # spread fire to all neighboring fire
-      while memory[dst_pos_after]&.hcf?
+      while memory[dst_pos_after]&.hcf? && Integer(ENV.fetch('UNLIMITED_FIRE_SPREAD', 0)) == 1
         dst_pos_after += 1
         dst_pos_after %= 256
       end
