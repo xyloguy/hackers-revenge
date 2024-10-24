@@ -388,7 +388,7 @@ function Replayer(replay, next) {
 
                 // draw a hcf
                 if (write.opcode == "HCF") {
-                    ctx.font = "" + (.75 * SQUARE_SIZE) + "px verdana, arial, sans-serif";
+                    ctx.font = "" + (.5 * SQUARE_SIZE) + "px 'Press Start 2P'";
                     ctx.textBaseline = "hanging";
                     ctx.drawImage(FIRE_IMG, pos.x, pos.y);
                 }
@@ -445,13 +445,13 @@ function Replayer(replay, next) {
             ctx.textAlign = 'center';
 
             if (status < 0) {
-                ctx.font = "bold  " + (2 * SQUARE_SIZE) + 'px verdana, arial, sans-serif';
-                ctx.fillText("TIE", CANVAS_SIZE / 2, CANVAS_SIZE * .25);
+                ctx.font = "bold  " + (SQUARE_SIZE * 1.5) + 'px \'Press Start 2P\'';
+                ctx.fillText("TIE", CANVAS_SIZE / 2, CANVAS_SIZE * .25 + SQUARE_SIZE);
             }
             if (status > 0) {
-                ctx.font = "bold  " + SQUARE_SIZE + 'px verdana, arial, sans-serif';
+                ctx.font = "bold  " + (SQUARE_SIZE * .75) + 'px \'Press Start 2P\'';
                 ctx.fillText(pname.toUpperCase(), CANVAS_SIZE / 2, CANVAS_SIZE * .125 + SQUARE_SIZE);
-                ctx.font = "bold  " + (2 * SQUARE_SIZE) + 'px verdana, arial, sans-serif';
+                ctx.font = "bold  " + (SQUARE_SIZE * 1.5) + 'px \'Press Start 2P\'';
                 ctx.fillText("WINS", CANVAS_SIZE / 2, CANVAS_SIZE * .25 + SQUARE_SIZE);
             }
             ctx.restore();
@@ -460,7 +460,7 @@ function Replayer(replay, next) {
         ctx.save();
         ctx.translate(0, CANVAS_SIZE+(SQUARE_SIZE/2) + SQUARE_SIZE/2);
         ctx.clearRect(0, 0, 2000, 200);
-        ctx.font = "bold " + (.6 * SQUARE_SIZE) + "px verdana, arial, sans-serif";
+        ctx.font = "bold " + (.4 * SQUARE_SIZE) + "px 'Press Start 2P'";
         ctx.fillStyle = "#fff";
         var cycle = replayer._current_journal.cycle.toLocaleString(
             'en',
@@ -468,7 +468,7 @@ function Replayer(replay, next) {
                 minimumFractionDigits:0,useGrouping:false}
         )
         ctx.textBaseline = "hanging";
-        ctx.fillText("CYCLE " + cycle, 0, SQUARE_SIZE*.125);
+        ctx.fillText("CYCLE " + cycle, 0, SQUARE_SIZE*.25);
 
         ctx.strokeStyle = ctx.fillStyle;
         ctx.lineWidth=5;
@@ -511,8 +511,8 @@ function Replayer(replay, next) {
             default:
                 status_label = "???";
         }
-        ctx.font = "" + (.45 * SQUARE_SIZE) + "px verdana, arial, sans-serif";
-        ctx.fillText(status_label.toUpperCase(), SQUARE_SIZE * 5, SQUARE_SIZE*.225);
+        ctx.font = "" + (.25 * SQUARE_SIZE) + "px 'Press Start 2P'";
+        ctx.fillText(status_label.toUpperCase(), SQUARE_SIZE * 5, SQUARE_SIZE*.325);
         ctx.restore();
     };
 
@@ -619,6 +619,14 @@ function trigger(ev) {
 var R;
 document.addEventListener('replay_done',
     function (ev) {
+        $.ajax({
+            cache: false,
+            dataType: 'json',
+            url: '/admin/api/leaderboard',
+            success: function (data) {
+                populateLB(data);}
+        });
+
         var next_replay = RUN_QUEUE.pop();
         if (next_replay === undefined) {
             trigger('run_queue_empty');
