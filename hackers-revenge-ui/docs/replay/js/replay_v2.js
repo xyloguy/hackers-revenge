@@ -276,10 +276,10 @@ function Replayer(replay, next) {
             ctx.lineDashOffset = ap * 16;
             ctx.globalAlpha = .8;
             ctx.strokeStyle = JUMP_COLOR;
-            ctx.lineWidth=5;
+            ctx.lineWidth = 5;
             ctx.beginPath();
             ctx.moveTo(src.x + SQUARE_SIZE*0.5, src.y + (SQUARE_SIZE*0.5) + SQUARE_SIZE);
-            ctx.lineTo(dst.x + SQUARE_SIZE*0.5, dst.y + (SQUARE_SIZE*0.5)+ SQUARE_SIZE);
+            ctx.lineTo(dst.x + SQUARE_SIZE*0.5, dst.y + (SQUARE_SIZE*0.5) + SQUARE_SIZE);
             ctx.stroke();
             ctx.restore();
         }
@@ -388,13 +388,13 @@ function Replayer(replay, next) {
 
                 // draw a hcf
                 if (write.opcode == "HCF") {
-                    ctx.font = "" + (.75 * SQUARE_SIZE) + "px helvetica, arial, sans-serif";
+                    ctx.font = "" + (.75 * SQUARE_SIZE) + "px verdana, arial, sans-serif";
                     ctx.textBaseline = "hanging";
-                    ctx.drawImage(FIRE_IMG, pos.x, pos.y + SQUARE_SIZE, FIRE_IMG.width, FIRE_IMG.height);
+                    ctx.drawImage(FIRE_IMG, pos.x, pos.y);
                 }
                 else {
                     ctx.fillStyle = "#fff";
-                    ctx.fillRect(pos.x, pos.y + SQUARE_SIZE, 4, 4);
+                    ctx.fillRect(pos.x, pos.y, 4, 4);
                 }
             }
         }
@@ -411,6 +411,11 @@ function Replayer(replay, next) {
     }
 
     replayer.draw_code = function(is_tied) {
+        $("#leaderboard tr").removeClass("program1").removeClass("program2");
+        var p1 = encName(replayer._replay.program1.player_name);
+        $("#" + p1).addClass("program1");
+        var p2 = encName(replayer._replay.program2.player_name);
+        $("#" + p2).addClass("program2");
         var ctx = canvas_fg.getContext("2d");
         var status = replayer._current_journal.status;
         ctx.clearRect(CANVAS_SIZE + SQUARE_SIZE, 0, 2000, CANVAS_SIZE*2);
@@ -506,37 +511,9 @@ function Replayer(replay, next) {
             default:
                 status_label = "???";
         }
-
-        // if (status > 0) {
-        //     status_label = "program " + replayer._current_journal.program + " " + status_label;
-        // }
-
         ctx.font = "" + (.45 * SQUARE_SIZE) + "px verdana, arial, sans-serif";
         ctx.fillText(status_label.toUpperCase(), SQUARE_SIZE * 5, SQUARE_SIZE*.225);
-
         ctx.restore();
-
-        for (var p = 0 ; p < 2 ; p++) {
-            ctx.save();
-            ctx.translate((CANVAS_SIZE/2) * p, 0);
-            ctx.clearRect(0, 0, CANVAS_SIZE, SQUARE_SIZE);
-
-            if (p == 0) {
-                ctx.fillStyle = P1_COLOR;
-            } else {
-                ctx.fillStyle = P2_COLOR;
-            }
-
-            var player = replayer._replay.program1;
-            if (p == 1) {
-                player = replayer._replay.program2;
-            }
-
-            // Player Names
-            ctx.font = "bold  " + (.5 * SQUARE_SIZE) + 'px verdana, arial, sans-serif';
-            ctx.fillText(player.player_name.toUpperCase(), 0, SQUARE_SIZE*.25);
-            ctx.restore();
-        }
     };
 
     replayer.draw_mem = function() {
@@ -570,7 +547,7 @@ function Replayer(replay, next) {
                         ctx.fillStyle = P2_COLOR;
                     }
                     ctx.fillRect(sx, sy, SQUARE_SIZE-CELL_BUFFER, SQUARE_SIZE-CELL_BUFFER);
-                    ctx.drawImage(FIRE_IMG, sx, sy, FIRE_IMG.width, FIRE_IMG.height);
+                    ctx.drawImage(FIRE_IMG, sx, sy);
 
                     if ("cluster" in m && m.cluster) {
                         ctx.fillStyle = "#fff";
@@ -601,6 +578,40 @@ function Replayer(replay, next) {
 
 var RUN_QUEUE = [];
 
+function encName(name) {
+    name = name.toLowerCase();
+    return name.split(" ").join("");
+}
+
+function populateLB(data) {
+    var ending= (data.remaining_seconds < (10 * 60) && data.remaining_seconds > 1);
+    var total = 0;
+    var elements = $.map(data.leaders,
+        function(val, i) {
+
+            var status = "won";
+            if (val.winner == 0) {
+                status = "tied";
+            } else if (val.winner == -1) {
+                status = "lost";
+            }
+
+            var time = new Date(val.last_battle_timestamp).toLocaleTimeString();
+            var battle = status + " against '" + (ending ? "???????" : val.opponent_name) + "' at " + time;
+            var stats = "wins: " + val.wins + " ties: " + val.ties + " losses: " + val.losses;
+            var name = val.name;
+            if (!name.match(/^HCF/)) {
+                name = ending ? "???????????????" : val.name;
+            }
+            total += 1;
+
+            return "<tr id=\"" + encName(name) + "\"><th>" + (i+1) + "</th><td>"+name+"<br/><div class='tally'>"+stats+"</div></td><td>"+val.score*100+"</td>";
+        });
+
+    $("#top").html("top " + String(total));
+    $( "#lb-body" ).html(elements);
+}
+
 function trigger(ev) {
     document.dispatchEvent(new Event(ev));
 }
@@ -628,6 +639,8 @@ document.addEventListener('run_queue_empty', function (ev) {
         dataType: 'json',
         url: '/admin/api/leaderboard',
         success: function (data) {
+            populateLB(data);
+
             var ajaxes = [];
             for (var i = 0 ; i < data.leaders.length ; i++) {
                 var d = data.leaders[i];

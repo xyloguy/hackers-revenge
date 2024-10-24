@@ -60,55 +60,36 @@
             text-transform: uppercase;
         }
 
-        tbody tr:nth-child(odd) {
-            color: #ff0;
-        }
-        tbody tr:nth-child(even) {
-            color: #ffab00;
+        tbody tr {
+            color: #fafafa;
+            font-size: 2.0vh;
         }
 
-        tbody tr:nth-child(1) {
+        .program1 {
             font-size: 2.8vh;
-            color: #00ff00;
             animation: fadey 1s infinite alternate;
         }
 
-        tbody tr:nth-child(2) {
-            font-size: 2.2vh;
-            color: #00ff00;
-            animation: fadey2 2s infinite alternate;
-        }
-
-        tbody tr:nth-child(3) {
-            font-size: 1.8vh;
-            color: #00ff00;
-            animation: fadey3 4s infinite alternate;
-        }
-
-        @keyframes fadey3 {
-            from {
-                color: #00ff00;
-            }
-            to {
-                color: #00aa00;
-            }
+        .program2 {
+            font-size: 2.8vh;
+            animation: fadey2 1s infinite alternate;
         }
 
         @keyframes fadey {
             from {
-                color: #007ee4;
+                color: #0000ff;
             }
             to {
-                color: #0000ff;
+                color: #007ee4;
             }
         }
 
         @keyframes fadey2 {
             from {
-                color: #ff0000;
+                color: #aa0000;
             }
             to {
-                color: #ee0505;
+                color: #ff0505;
             }
         }
 
@@ -116,14 +97,9 @@
             text-transform: uppercase;
         }
 
-        .status {
-            font-size: 1.2vh;
-            color: #ddd;
-        }
-
         .tally {
-            font-size: 1.3vh;
-            color: #ddd;
+            font-size: 1.5vh;
+            color: #ddd !important;
         }
 
         #top {
@@ -169,6 +145,5 @@
 
 <script src="js/example.js"></script>
 <script src="js/replay_v2.js"></script>
-<script src="js/leaderboard.js"></script>
 </body>
 </html>
