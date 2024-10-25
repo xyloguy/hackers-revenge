@@ -83,9 +83,8 @@
 			  }).done(function(data) {
 				  var t = data.token;
 				  var n = data.name;
-				  var url = "https://hcf.xyloguy.org/";
-				  qrcode.makeCode(url+"?token="+t);
-				  alert("Your entry token is <br/><b>"+t+"</b><br/>Your program name is <br/>'<b>"+n+"</b>'<p><b>"+url+"</b></p>", "success", true);
+				  qrcode.makeCode("http://" + window.location.hostname + "/?token=" + t);
+				  alert("Your entry token is <br/><b>"+t+"</b><br/>Your program name is <br/>'<b>"+n+"</b>'<p><b>http://"+window.location.hostname+"/</b></p>", "success", true);
 				  window.print()
 			  }).fail(function() {
 				  qrcode.clear();

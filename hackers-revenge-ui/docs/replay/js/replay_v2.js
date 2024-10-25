@@ -728,3 +728,5 @@ if (test == null) {
         }
     );
 }
+
+$("#url").html(window.location.hostname);

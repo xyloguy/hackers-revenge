@@ -11,7 +11,8 @@
         body {
             background: #010101;
             overflow: hidden;
-            font-family: verdana, arial, sans-serif;
+            font-family: 'Press Start 2P', verdana, arial, sans-serif;
+            color: white;
         }
 
         #replay {
@@ -34,7 +35,16 @@
             height: calc(100vh - 60px);
             overflow: clip;
             color: white;
-            font-family: 'Press Start 2P';
+        }
+
+        #url {
+            padding:20px 20px 20px 40px;
+            font-size: 2.2vh;
+            position: absolute;
+            bottom:0px;
+            left:0px;
+            background-color: #010101;
+            width: calc(50vw);
         }
 
         @keyframes scrollUp {
@@ -99,7 +109,7 @@
 
         .tally {
             font-size: 1.5vh;
-            color: #ddd !important;
+            color: #777777 !important;
         }
 
         #top {
@@ -127,6 +137,7 @@
                 </tbody>
             </table>
         </div>
+        <div id="url"></div>
     </div>
 
     <div id="replay">
