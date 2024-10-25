@@ -1,2 +1,8 @@
 .idea
 .DS_Store
+hackers-revenge-ui/default.conf
+hackers-revenge-ui/ssl.conf
+htpasswd/leaderboard.conf
+htpasswd/replay.conf
+htpasswd/token.conf
+docker-compose.yml

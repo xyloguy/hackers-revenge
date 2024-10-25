@@ -41,5 +41,8 @@ module HackersRevengeServer
     config.exceptions_app = routes
 
     config.hosts << "server"
+
+    config.active_record.encryption.forced_encoding_for_deterministic_encryption = nil
+    config.active_record.encryption.support_unencrypted_data = true
   end
 end

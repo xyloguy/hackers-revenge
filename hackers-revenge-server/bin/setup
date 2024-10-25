@@ -29,11 +29,6 @@ chdir APP_ROOT do
   system! "bin/rails log:clear"
 
   puts "\n== Preparing database =="
-  unless File.exist?("config/master.key")
-    system "rm -f config/credentials.yaml.enc"
-    system! "bin/rails credentials:edit"
-    system! "bin/rails db:reset"
-  end
   system! "bin/rails db:prepare"
 
   puts "\n== Remove tmp files and Restarting application server =="

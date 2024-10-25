@@ -12,7 +12,7 @@ LICENSE MIT
 ### Steps to Get started
 
 1. To start the server: `make up`
-1. Go to `http://localhost/admin/token` and click the generate token (user: `beta`, pass: `yolo`) <--- these are set in the `hackers-revenge-ui/auth.conf` you can generate your own credentials by opening `htpasswd_gen.html` in a web browser.
+1. Go to `http://localhost/admin/token` and click the generate token (user: `beta`, pass: `yolo`) <--- these are set in the `htpasswd/token.conf` you can generate your own credentials by opening `htpasswd_gen.html` in a web browser.
 1. Go to `http://localhost/` to the instructions page. Input your token, create/submit your program.
 1. Go to `http://localhost/admin/replay` to see random battles of programs. (user: `replay`, pass: `yolo`)
 1. Go to `http://localhost/admin/leaderboard` to see the top scores of programs. (user: `leaderboard`, pass: `yolo`)
@@ -20,10 +20,10 @@ LICENSE MIT
 
 ### To Reset the system
 
-1. `make down` to stop the server if it is running
+1. `make reset` to stop the server if it is running
 2. (OPTIONAL) delete the files in hackers-revenge-server/vendor (except the .keep file)
-3. (OPTIONAL) delete the containers, images, and volumes from docker. (I am not going to put instructions for this. IYKYK)
-3. `make reset` this will delete the database and restart the servers.
+3. (OPTIONAL) delete the containers, images. (I am not going to put instructions for this. IYKYK)
+3. `make up` start the server again.
 
 
 ## Set up SSL
