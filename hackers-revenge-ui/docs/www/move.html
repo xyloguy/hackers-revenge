@@ -193,72 +193,6 @@
 			  <div class="card-body">
 				<table class="table">
 				  <tbody>
-
-					<tr>
-					  <th>NOOP</th>
-					</tr>
-					<tr>
-					  <td>
-						No Operation. Do nothing.
-					  </td>
-					</tr>
-
-					<tr>
-					  <th>PUSH <i>n</i></th>
-					</tr>
-					<tr>
-					  <td>
-						Push value <i>n</i> to the top of the stack.
-					  </td>
-					</tr>
-
-					<tr>
-					  <th>DROP</th>
-					</tr>
-					<tr>
-					  <td>
-						Remove the top item on the stack.
-					  </td>
-					</tr>
-
-					<tr>
-					  <th>DUPE</th>
-					</tr>
-					<tr>
-					  <td>
-						Duplicate the top item on the stack.
-					  </td>
-					</tr>
-
-					<tr>
-					  <th>DUPE2</th>
-					</tr>
-					<tr>
-					  <td>
-						Duplicate the top item on the stack twice.
-					  </td>
-					</tr>
-
-					<tr>
-					  <th>SWAP</th>
-					</tr>
-					<tr>
-					  <td>
-						Swap the order of the top two items on the
-						stack.
-					  </td>
-					</tr>
-
-					<tr>
-					  <th>INC <i>n</i></th>
-					</tr>
-					<tr>
-					  <td>
-						Add the value <i>n</i> to the item on the top of
-						the stack.
-					  </td>
-					</tr>
-
 					<tr>
 					  <th>ADD</th>
 					</tr>
@@ -270,12 +204,25 @@
 					</tr>
 
 					<tr>
-						<th>SUBTRACT</th>
+						<th>COPY <i>p</i></th>
 					</tr>
 					<tr>
 						<td>
-							Pop two items from the stack, subtract them and
-							push the result back to the top.
+							<p>
+								Pop a relative location from the stack and
+								use it as the destination <i>d</i>. Copy
+								the instruction from relative location <i>p</i>
+								to the relative location <i>d</i>.
+							</p>
+							<p>
+								For example; in the following program
+								the <b>COPY</b> copies the <b>HCF</b>
+								instruction to the location pointed to by
+								the <b>PUSH</b> instruction, 4 cells away.
+							</p>
+							<p>
+								<img src="copy.png" />
+							</p>
 						</td>
 					</tr>
 
@@ -288,12 +235,31 @@
 						</td>
 					</tr>
 
+
 					<tr>
-						<th>MULTIPLY <i>n</i></th>
+						<th>DROP</th>
 					</tr>
 					<tr>
 						<td>
-							Pop top item from the top of stack and multiply it by <i>n</i> and push the result back to the stack. If <i>n</i> is 0, then the stack is unaffected
+							Remove the top item on the stack.
+						</td>
+					</tr>
+
+					<tr>
+						<th>DUPE</th>
+					</tr>
+					<tr>
+						<td>
+							Duplicate the top item on the stack.
+						</td>
+					</tr>
+
+					<tr>
+						<th>DUPE2</th>
+					</tr>
+					<tr>
+						<td>
+							Duplicate the top item on the stack twice.
 						</td>
 					</tr>
 
@@ -307,6 +273,65 @@
 					</tr>
 
 					<tr>
+						<th>HCF</th>
+					</tr>
+					<tr>
+						<td>
+							<p>
+								Stop running and catch fire (you lose.)
+							</p>
+							<p>
+								<b>Cluster Effect:</b> if you copy a HCF on top
+								of an <i>existing</i> HCF instruction, the fire
+								will spread to the neighboring cells.
+							</p>
+						</td>
+					</tr>
+
+					<tr>
+						<th>INC <i>n</i></th>
+					</tr>
+					<tr>
+						<td>
+							Add the value <i>n</i> to the item on the top of
+							the stack.
+						</td>
+					</tr>
+
+					<tr>
+						<th>JUMP <i>p</i></th>
+					</tr>
+					<tr>
+						<td>
+							Jump to relative location <i>p</i>. e.g JUMP
+							-1 jumps to the instruction before, JUMP 2
+							jumps two forward. <b><i>JUMP 0</i> will
+							cause your program to terminate.</b>
+						</td>
+					</tr>
+
+					<tr>
+						<th>JUMPG <i>p</i></th>
+					</tr>
+					<tr>
+						<td>
+							Pop value from the top of the stack, jump to
+							relative location <i>p</i> if the value is greater than
+							0.
+						</td>
+					</tr>
+
+					<tr>
+						<th>JUMPZ <i>p</i></th>
+					</tr>
+					<tr>
+						<td>
+							Pop value from the top of the stack, jump to
+							relative location <i>p</i> if the value is 0.
+						</td>
+					</tr>
+
+					<tr>
 						<th>LT <i>n</i></th>
 					</tr>
 					<tr>
@@ -316,107 +341,82 @@
 					</tr>
 
 					<tr>
-					  <th>NEGATE</th>
+						<th>MULTIPLY <i>n</i></th>
 					</tr>
 					<tr>
-					  <td>
-						Negate the item at the top of the stack, e.g 1
-						becomes -1 and -1 becomes 1.
-					  </td>
-					</tr>
-
-					<tr>
-					  <th>JUMP <i>p</i></th>
-					</tr>
-					<tr>
-					  <td>
-						Jump to relative location <i>p</i>. e.g JUMP
-						-1 jumps to the instruction before, JUMP 2
-						jumps two forward. <b><i>JUMP 0</i> will
-						cause your program to terminate.</b>
-					  </td>
+						<td>
+							Pop top item from the top of stack and multiply it by <i>n</i> and push the result back to the stack. If <i>n</i> is 0, then the stack is unaffected
+						</td>
 					</tr>
 
 					<tr>
-					  <th>JUMPZ <i>p</i></th>
+						<th>NEGATE</th>
 					</tr>
 					<tr>
-					  <td>
-						Pop value from the top of the stack, jump to
-						relative location <i>p</i> if the value is 0.
-					  </td>
-					</tr>
-
-					<tr>
-					  <th>JUMPG <i>p</i></th>
-					</tr>
-					<tr>
-					  <td>
-						Pop value from the top of the stack, jump to
-						relative location <i>p</i> if the value is greater than
-						0.
-					  </td>
-					</tr>
-					
-					<tr>
-					  <th>HCF</th>
-					</tr>
-					<tr>
-					  <td>
-						<p>
-						  Stop running and catch fire (you lose.)
-						</p>
-						<p>
-						  <b>Cluster Effect:</b> if you copy a HCF on top
-						  of an <i>existing</i> HCF instruction, the fire
-						  will spread to the neighboring cells.
-						</p>
-					  </td>
+						<td>
+							Negate the item at the top of the stack, e.g 1
+							becomes -1 and -1 becomes 1.
+						</td>
 					</tr>
 
 					<tr>
-					  <th>SCAN <i>n</i></th>
+						<th>NOOP</th>
 					</tr>
 					<tr>
-					  <td>
-						Pop a <i> relative </i> memory address from
-						the top of the stack and scan <i>n</i>
-						locations starting from that address. A number
-						will be pushed to top of the stack depending
-						on what is found:
-						<ul>
-						  <li> -1: Found a <b>HCF</b> instruction.</li>
-						  <li> 0: Nothing Found. </li>
-						  <li> 1: Found another instruction </li>
-						</ul>
-						For example: <b>PUSH 10 ; SCAN 5</b> will scan
-						5 locations, starting at 10 locations
-						away. <b>SCAN -10</b> will scan 10 locations
-						<i>backwards</i> from the start position.
-					  </td>
+						<td>
+							No Operation. Do nothing.
+						</td>
 					</tr>
 
 					<tr>
-					  <th>COPY <i>p</i></th>
+						<th>PUSH <i>n</i></th>
 					</tr>
 					<tr>
-					  <td>
-						<p>
-						  Pop a relative location from the stack and
-						  use it as the destination <i>d</i>. Copy
-						  the instruction from relative location <i>p</i>
-						  to the relative location <i>d</i>.
-						</p>
-						<p>
-						  For example; in the following program
-						  the <b>COPY</b> copies the <b>HCF</b>
-						  instruction to the location pointed to by
-						  the <b>PUSH</b> instruction, 4 cells away.
-						</p>
-						<p>
-						  <img src="copy.png" />
-						</p>
-					  </td>
+						<td>
+							Push value <i>n</i> to the top of the stack.
+						</td>
+					</tr>
+
+					<tr>
+						<th>SCAN <i>n</i></th>
+					</tr>
+					<tr>
+						<td>
+							Pop a <i> relative </i> memory address from
+							the top of the stack and scan <i>n</i>
+							locations starting from that address. A number
+							will be pushed to top of the stack depending
+							on what is found:
+							<ul>
+								<li> -1: Found a <b>HCF</b> instruction.</li>
+								<li> 0: Nothing Found. </li>
+								<li> 1: Found another instruction </li>
+							</ul>
+							For example: <b>PUSH 10 ; SCAN 5</b> will scan
+							5 locations, starting at 10 locations
+							away. <b>SCAN -10</b> will scan 10 locations
+							<i>backwards</i> from the start position.
+						</td>
+					</tr>
+
+					<tr>
+						<th>SUBTRACT</th>
+					</tr>
+					<tr>
+						<td>
+							Pop two items from the stack, subtract them and
+							push the result back to the top.
+						</td>
+					</tr>
+
+					<tr>
+						<th>SWAP</th>
+					</tr>
+					<tr>
+						<td>
+							Swap the order of the top two items on the
+							stack.
+						</td>
 					</tr>
 				  </tbody>
 				</table>
@@ -425,6 +425,17 @@
 				</p>
 				<table class="table">
 				  <tbody>
+					<tr>
+					  <th>DECSKIP <i>p</i></th>
+					</tr>
+					<tr>
+					  <td>
+						  Decrement the argument of the instruction
+						  pointed to by <i>p</i> and skip the next
+						  instruction if the argument is now zero.
+					  </td>
+					</tr>
+
 					<tr>
 					  <th>ICOPY <i>p</i></th>
 					</tr>
@@ -458,6 +469,38 @@
 					</tr>
 
 					<tr>
+						<th>INCARG <i>n</i></th>
+					</tr>
+					<tr>
+						<td>
+							<p>
+								Pop a relative location from the stack and
+								add <i>n</i> to the argument of the
+								instruction at that location.
+							</p>
+						</td>
+					</tr>
+
+					<tr>
+						<th>SETARG <i>p</i></th>
+					</tr>
+					<tr>
+						<td>
+							<p>
+								Pop a value from the stack; replace the
+								argument of an instruction pointed to
+								by <i>p</i> with the value from the
+								stack. For example, the following program
+								would alter the <b>PUSH 5</b> to <b>PUSH
+								10</b>:
+							</p>
+							<p>
+								<img src="replace.png" />
+							</p>
+						</td>
+					</tr>
+
+					<tr>
 					  <th>PUSHARG</th>
 					</tr>
 					<tr>
@@ -467,49 +510,6 @@
 						  push the argument from that instruction to
 						  the top of the stack.
 						</p>
-					  </td>
-					</tr>
-
-					<tr>
-					  <th>INCARG <i>n</i></th>
-					</tr>
-					<tr>
-					  <td>
-						<p>
-						  Pop a relative location from the stack and
-						  add <i>n</i> to the argument of the
-						  instruction at that location.
-						</p>
-					  </td>
-					</tr>
-
-					<tr>
-					  <th>SETARG <i>p</i></th>
-					</tr>
-					<tr>
-					  <td>
-						<p>
-						  Pop a value from the stack; replace the
-						  argument of an instruction pointed to
-						  by <i>p</i> with the value from the
-						  stack. For example, the following program
-						  would alter the <b>PUSH 5</b> to <b>PUSH
-						  10</b>:
-						</p>
-						<p>
-						  <img src="replace.png" />
-						</p>
-					  </td>
-					</tr>					
-					
-					<tr>
-					  <th>DECSKIP <i>p</i></th>
-					</tr>
-					<tr>
-					  <td>
-						Decrement the argument of the instruction
-						pointed to by <i>p</i> and skip the next
-						instruction if the argument is now zero.
 					  </td>
 					</tr>
 				  </tbody>
@@ -526,7 +526,6 @@
 				</button>
 			  </h2>
 			</div>
-
 
 			<div id="strategy" class="collapse" aria-labelledby="headingStrategy" data-parent="#accordion">
 			  <div class="card-body">
@@ -666,30 +665,30 @@
 		  <img id="popup-close" src="close.svg" onclick="closeProgramList()">
           <ul id="program-list" class="list-group">
 			<li class="list-group-item">ADD <button class="btn btn-dark float-end" onclick="addAction('ADD');">+</button></li>
-			<li class="list-group-item">SUBTRACT <button class="btn btn-dark float-end" onclick="addAction('SUBTRACT');">+</button></li>
-            <li class="list-group-item">COPY <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
+			<li class="list-group-item">COPY <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
 			<li class="list-group-item">DECSKIP <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
-            <li class="list-group-item">DROP <button class="btn btn-dark float-end" onclick="addAction('DROP');">+</button></li>
-            <li class="list-group-item">DUPE <button class="btn btn-dark float-end" onclick="addAction('DUPE');">+</button></li>
+			<li class="list-group-item">DIVIDE <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
+			<li class="list-group-item">DROP <button class="btn btn-dark float-end" onclick="addAction('DROP');">+</button></li>
+			<li class="list-group-item">DUPE <button class="btn btn-dark float-end" onclick="addAction('DUPE');">+</button></li>
 			<li class="list-group-item">DUPE2 <button class="btn btn-dark float-end" onclick="addAction('DUPE2');">+</button></li>
+			<li class="list-group-item">GT <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
 			<li class="list-group-item">HCF <button class="btn btn-dark float-end" onclick="addAction('HCF');">+</button></li>
 			<li class="list-group-item">ICOPY <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
-            <li class="list-group-item">INC <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
-            <li class="list-group-item">DIVIDE <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
-            <li class="list-group-item">MULTIPLY <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
-            <li class="list-group-item">GT <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
-            <li class="list-group-item">LT <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
+			<li class="list-group-item">INC <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
 			<li class="list-group-item">INCARG <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
-            <li class="list-group-item">JUMP <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
-            <li class="list-group-item">JUMPG <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
-            <li class="list-group-item">JUMPZ <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
-			<li class="list-group-item">NEGATE <button class="btn btn-dark float-end" onclick="addAction('NEGATE');">+</button></li>			
-            <li class="list-group-item">NOOP <button class="btn btn-dark float-end" onclick="addAction('NOOP');">+</button></li>
-            <li class="list-group-item">PUSH <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
+			<li class="list-group-item">JUMP <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
+			<li class="list-group-item">JUMPG <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
+			<li class="list-group-item">JUMPZ <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
+			<li class="list-group-item">LT <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
+			<li class="list-group-item">MULTIPLY <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
+			<li class="list-group-item">NEGATE <button class="btn btn-dark float-end" onclick="addAction('NEGATE');">+</button></li>
+			<li class="list-group-item">NOOP <button class="btn btn-dark float-end" onclick="addAction('NOOP');">+</button></li>
+			<li class="list-group-item">PUSH <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
 			<li class="list-group-item">PUSHARG <button class="btn btn-dark float-end" onclick="addAction('PUSHARG');">+</button></li>
-            <li class="list-group-item">SCAN <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
+			<li class="list-group-item">SCAN <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
 			<li class="list-group-item">SETARG <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
-            <li class="list-group-item">SWAP <button class="btn btn-dark float-end" onclick="addAction('SWAP');">+</button></li>
+			<li class="list-group-item">SUBTRACT <button class="btn btn-dark float-end" onclick="addAction('SUBTRACT');">+</button></li>
+			<li class="list-group-item">SWAP <button class="btn btn-dark float-end" onclick="addAction('SWAP');">+</button></li>
           </ul>
 		</div>
 		<div id="program-code" class="instructions-col text-center">

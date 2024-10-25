@@ -77,6 +77,7 @@ server {
             alias /usr/share/nginx/html/tokener;
         }
         location /admin/replay {
+            index v2.html
             auth_basic_user_file /usr/share/nginx/htpasswd/replay.conf;
             alias /usr/share/nginx/html/replay;
         }

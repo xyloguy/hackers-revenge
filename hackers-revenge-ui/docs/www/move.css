@@ -409,3 +409,7 @@ div.card-header button {
 	font-size: 18px;
 	
 }
+
+div.card-header button:hover{
+	color: #00aa00 !important;
+}
