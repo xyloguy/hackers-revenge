@@ -532,8 +532,8 @@ function Replayer(replay, next) {
             }
 
             // Player Names
-            ctx.font = "bold  " + (.5 * SQUARE_SIZE) + 'px verdana, arial, sans-serif';
-            ctx.fillText(player.player_name.toUpperCase(), 0, SQUARE_SIZE*.25);
+            ctx.font = "bold  " + (.38 * SQUARE_SIZE) + 'px verdana, arial, sans-serif';
+            ctx.fillText(player.player_name.toUpperCase(), 0, SQUARE_SIZE*.45);
             ctx.restore();
         }
     };
