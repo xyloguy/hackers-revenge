@@ -722,6 +722,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 		const codeInput = document.getElementById("text_mode_box");
 		codeInput.value = savedCode;
-		updateProgramList();
+		if (!useTextMode) {
+			updateProgramList();
+		} else {
+			codeInput.dispatchEvent(new Event("input"));
+		}
 	}
 });
