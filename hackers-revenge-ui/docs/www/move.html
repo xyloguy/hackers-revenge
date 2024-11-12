@@ -659,34 +659,34 @@
 			<p>
 			  tip: you can start a line with # for comments.
 			</p>
-			<textarea id="text_mode_box" style="width: 100%; max-width: 100%;" rows=25></textarea>
+			<textarea id="text_mode_box" spellcheck="false" style="width: 100%; max-width: 100%;"></textarea>
 		  </div>
 
 		  <img id="popup-close" src="close.svg" onclick="closeProgramList()">
           <ul id="program-list" class="list-group">
 			<li class="list-group-item">ADD <button class="btn btn-dark float-end" onclick="addAction('ADD');">+</button></li>
-			<li class="list-group-item">COPY <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
-			<li class="list-group-item">DECSKIP <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
-			<li class="list-group-item">DIVIDE <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
+			<li class="list-group-item">COPY <input class="center-block" onchange="checkVal(this)" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
+			<li class="list-group-item">DECSKIP <input class="center-block" onchange="checkVal(this)" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
+			<li class="list-group-item">DIVIDE <input class="center-block" onchange="checkVal(this)" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
 			<li class="list-group-item">DROP <button class="btn btn-dark float-end" onclick="addAction('DROP');">+</button></li>
 			<li class="list-group-item">DUPE <button class="btn btn-dark float-end" onclick="addAction('DUPE');">+</button></li>
 			<li class="list-group-item">DUPE2 <button class="btn btn-dark float-end" onclick="addAction('DUPE2');">+</button></li>
-			<li class="list-group-item">GT <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
+			<li class="list-group-item">GT <input class="center-block" onchange="checkVal(this)" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
 			<li class="list-group-item">HCF <button class="btn btn-dark float-end" onclick="addAction('HCF');">+</button></li>
-			<li class="list-group-item">ICOPY <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
-			<li class="list-group-item">INC <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
-			<li class="list-group-item">INCARG <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
-			<li class="list-group-item">JUMP <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
-			<li class="list-group-item">JUMPG <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
-			<li class="list-group-item">JUMPZ <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
-			<li class="list-group-item">LT <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
-			<li class="list-group-item">MULTIPLY <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
+			<li class="list-group-item">ICOPY <input class="center-block" onchange="checkVal(this)" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
+			<li class="list-group-item">INC <input class="center-block" onchange="checkVal(this)" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
+			<li class="list-group-item">INCARG <input class="center-block" onchange="checkVal(this)" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
+			<li class="list-group-item">JUMP <input class="center-block" onchange="checkVal(this)" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
+			<li class="list-group-item">JUMPG <input class="center-block" onchange="checkVal(this)" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
+			<li class="list-group-item">JUMPZ <input class="center-block" onchange="checkVal(this)" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
+			<li class="list-group-item">LT <input class="center-block" onchange="checkVal(this)" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
+			<li class="list-group-item">MULTIPLY <input class="center-block" onchange="checkVal(this)" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
 			<li class="list-group-item">NEGATE <button class="btn btn-dark float-end" onclick="addAction('NEGATE');">+</button></li>
 			<li class="list-group-item">NOOP <button class="btn btn-dark float-end" onclick="addAction('NOOP');">+</button></li>
-			<li class="list-group-item">PUSH <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
+			<li class="list-group-item">PUSH <input class="center-block" onchange="checkVal(this)" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
 			<li class="list-group-item">PUSHARG <button class="btn btn-dark float-end" onclick="addAction('PUSHARG');">+</button></li>
-			<li class="list-group-item">SCAN <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
-			<li class="list-group-item">SETARG <input class="center-block" type="number" min="-255" max="255" maxlength="3" pattern="[0-9-]*" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
+			<li class="list-group-item">SCAN <input class="center-block" onchange="checkVal(this)" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
+			<li class="list-group-item">SETARG <input class="center-block" onchange="checkVal(this)" oninput="maxLengthCheck(this)"/><button class="btn btn-dark float-end" onclick="addAction(this);">+</button></li>
 			<li class="list-group-item">SUBTRACT <button class="btn btn-dark float-end" onclick="addAction('SUBTRACT');">+</button></li>
 			<li class="list-group-item">SWAP <button class="btn btn-dark float-end" onclick="addAction('SWAP');">+</button></li>
           </ul>
@@ -698,6 +698,7 @@
 		  <br/>
 		  <br/>
 		  <button class="btn btn-dark btn-lg" onclick="submitActions(this)">Submit <span>Program</span></button>		 
+		  <button class="btn btn-dark btn-lg" onclick="loadProgram(this)">Load Last <span>Program</span></button>
 		  <div class="dropdown">
 			<button id="testDropdown" class="btn btn-dark btn-lg btn-secondary dropdown-toggle" data-toggle="dropdown">Test <span>Program</span></button>
 			<div class="dropdown-menu" aria-labelledby="testDropdown">

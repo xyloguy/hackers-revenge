@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     get "/journal/:battle_id/:round_num", :to => "round#show"
 
     post "/program", :to => "program#create"
+    post "/load_program", :to => "program#load_program"
     #post "/test_round", :to => "test_round#create"
     post "/test_round", :to => "test_round_p2existing#create"
     post "/test_round_p2existing", :to => "test_round_p2existing#create"

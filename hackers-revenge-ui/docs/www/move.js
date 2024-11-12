@@ -9,66 +9,108 @@ const SQUARE_SIZE = (window.innerWidth * 0.5)/16;
 const FIRE_IMG = new Image();
 FIRE_IMG.src = 'data:image/png;;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDcuMS1jMDAwIDc5LmRhYmFjYmIsIDIwMjEvMDQvMTQtMDA6Mzk6NDQgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ9InhtcC5kaWQ6NDZjMTJjYTktNzhkNy00NDQwLTk5MTktMTVmMzY0Y2ZhNDEwIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjgyQzZGMzg0MUE1RDExRUNCNDA4RUY2OUM4NjhBQkVEIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjgyQzZGMzgzMUE1RDExRUNCNDA4RUY2OUM4NjhBQkVEIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCAyMi41IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDgwMzBkZWUtYzY0ZC00YTZiLWI2ODMtMTUyNGMzMTQzMjFkIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjA4MDMwZGVlLWM2NGQtNGE2Yi1iNjgzLTE1MjRjMzE0MzIxZCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PtNamJ4AAAMiSURBVHja1JpJaBRBFIZ7YlyyTBKDUQcFF1ySeNCgiAbRg8cgDoZcgkFQERFPgnryICquoOAKokH04kHE5eIEUYmawxhvgocojhnRiEJwI1Em7V+kGpqmu+u9rplO94OPDD31qt9fy6tlkjBN04izlRkxtzAEtIK2UlWeCGkIZcFtcCauQ+ghOA0OxFXAoPx7ErTHUUCl7fNVkIqbgBW2z9PB8ThN4ikgDxpszwqgEQzEoQd2O4IXNkk+j3wPLAavQbXLd5/A3Cj3gGj1Bx7BC5sDmqMqYAl4AZYqym2MooA06JPDR2UroySgDlwDd0E90WdZVCZxBzgPZjH9foHkRAqYDa6AzRp1JKWQ0IfQJvBGM3grG4U+Bw6B+4yx7mczdJzLA/icAAeLOPlrwuyBHQGCfx8VASLlXWCUHwNd8q+f1Ycl4CKYxii/E/SARaWcA1QBIuNsYNR7CXSDCkLZZo9eSZDeJNYBAo9NuuVApfSrBmOK8sOgwvG+cnCEEhsl+IUmz7oc/lmCz1mHTwoUQLoYAvYygs/L1rP77yP6doMWsAo8l8/egTJdAXcYAk65+NeBb2Zwa/OLjzKJGxmTN+PybBgc00g07bqbuVF5MKduC757ZLtnYF0AAW9Bk44A6nZ1RJE258nzMXfh+gOqwjjQjCq+z4FOwsrsdykWSMAQ8UW1hPoegcNMASO6AnKMl80nlDkKnjLq/KwroI/xshbGJo96CsvqCsgwBFCvSfKM1JrRTaOTwUd5/lXZF3nbViCUrZK3c7U+ZX4b4zfZP3V64J88uLvZV9DrOOSniS0rgrupKHPOL3jObrQGDHnsJGeCXtuzV6r9i420zxZiECRVdVDPxD/AfnDDJXWKhWa9pFUuZg3E9DvgM9E7la3P6AGLWy4ttYZZh50mj9bfTq2DuxLvkpe2xbqgTbm0/B5wvVS3EmK4iN98X1J3iwpb7di1bgGXWTUE7Pqp8gBi2dqA9fRL/ydgQZA6DI3xa2URkS16Avh2gA9gK0gEjaEYt9Mi62wD/apl31o8jfHfDpaDe+BvFK7XJ8xi/98q/wUYAJX7fvkP/XOvAAAAAElFTkSuQmCC';
 
-var x = 0;
-var useTextMode = false;
+let x = 0;
+let useTextMode = false;
 
 const moveButtonsHTML = `<div onclick="moveUp(this)" class="move-btn">▲</div><div onclick="moveDown(this)" class="move-btn">▼</div>`;
-const removeActionButtonHTML = `<input class="btn btn-danger float-end" type="button" value="X" onclick="removeAction(this)" />`;
+const removeActionButtonHTML = `<button class="btn btn-danger float-end" onclick="removeAction(this)">X</button>`;
 const programControlsHTML = `<div class="program-controls">${moveButtonsHTML}${removeActionButtonHTML}</div>`
 const hamburgerGrabIcon = `<div class="grab-icon"><img src="grab.svg"></div>`
 
 function addAction(object) {
-
-	const div = document.createElement('div');
-	if (typeof object === 'object') {
-		const action = object.parentElement.childNodes[0].nodeValue;
-		const action_number = object.parentElement.childNodes[1].value
-		if(action_number == "") {
-			var message = "You must pass in an argument on this action!";
-			alertFunction(message);
-			return
+	function arg_html(val) {
+		val = String(val);
+		val = val.trim();
+		const regex = /^(-?\d+)$/g;
+		if (!regex.test(val)) {
+			val = "";
 		}
+		return "<input class=\"arg\" value=\""+ val +"\" onchange=\"checkVal(this)\" oninput=\"maxLengthCheck(this)\"/>";
+	}
 
-		object.parentElement.childNodes[1].value= "";
-		div.className = 'row';
+	function action_html(action) {
+		return '<div class="opcode">' + action.trim() + '</div>';
+	}
 
-		div.innerHTML = `
-    <li class="list-group-item action">` + hamburgerGrabIcon + action + " " + action_number + programControlsHTML + `</li>`;
+	let title = "";
+	const div = document.createElement('div');
+	if (object.opcode) {
+		const action = object.opcode;
+		const action_number = object.arg;
+		title = action_html(action);
+		if (action_number !== null) {
+			title += arg_html(action_number);
+		}
+	}
+	else if (typeof object === 'object') {
+		const action = object.parentElement.childNodes[0].nodeValue;
+		const action_number = object.parentElement.childNodes[1].value;
+		if(action_number === "") {
+			const message = "You must pass in an argument on this action!";
+			alertFunction(message);
+			return false;
+		}
+		title = action_html(action) + arg_html(action_number);
+		object.parentElement.childNodes[1].value = "";
 	}
 	else {
-
-		div.className = 'row';
-
-		div.innerHTML = `
-  <li class="list-group-item action">` + hamburgerGrabIcon + object + " " + programControlsHTML + `</li>`;
+		title = action_html(object);
 	}
+	div.className = 'row';
+	div.innerHTML = `
+  <li class="list-group-item action">` + hamburgerGrabIcon + `<div class="code">` + title + `</div>` + programControlsHTML + `</li>`;
 	document.getElementById('content').appendChild(div);
+	convertToTextProgram();
 	closeProgramList();
+	return true;
 }
 
 function removeAction(input) {
 	const obj = input.parentElement.parentElement;
 	obj.parentElement.removeChild(obj);
+	convertToTextProgram();
 }
 
 function moveUp(input) {
 	const obj = input.parentElement.parentElement;
 	$(obj.parentElement).insertBefore($(obj.parentElement).prev());
+	convertToTextProgram();
 }
 
 function moveDown(input) {
 	const obj = input.parentElement.parentElement;
 	$(obj.parentElement).insertAfter($(obj.parentElement).next());
+	convertToTextProgram();
 }
 
 function maxLengthCheck(my_object) {
-	if (my_object.value[0] == "-") {
-		const num_length = my_object.maxLength + 1
-		my_object.value = my_object.value.slice(0, num_length)
+	let num_length = 3;
+	if (String(my_object.value).substring(0, 1) === "-") num_length += 1;
+	let newVal = my_object.value.slice(0, num_length);
+
+	const reg = /^-?\d{0,4}$/;
+	while (!reg.test(newVal) && newVal.length !== 0) {
+		newVal = newVal.slice(0, newVal.length - 1);
 	}
-	if (my_object.value[0] != "-" && my_object.value.length > my_object.maxLength)
-	{
-		my_object.value = my_object.value.slice(0, my_object.maxLength)
+
+	if (newVal.length > 1) {
+		if (parseInt(newVal) < -255) {
+			newVal = newVal.slice(0, newVal.length - 1);
+		}
+
+		if (parseInt(newVal) > 255) {
+			newVal = newVal.slice(0, newVal.length - 1);
+		}
+	}
+
+	my_object.value = newVal;
+}
+
+function checkVal(my_object) {
+	let newVal = my_object.value.slice(0, 4);
+	const reg = /^-?\d{1,3}$/;
+	if (!reg.test(newVal)) {
+		my_object.value = my_object.defaultValue;
 	}
 }
 
@@ -76,26 +118,71 @@ function getMoves() {
 	const move_items = document.getElementsByClassName("action")
 	const move_object = []
 	for (let i = 0; i < move_items.length; i++) {
-		if (move_items[i].childNodes[1].nodeValue.match(/\d+/g)) {
-			let item = move_items[i].childNodes[1].nodeValue.split(" ");
-			let action = {"opcode": item[0].trim(), "arg": item[2]};
-			move_object.push(action);
+		let action = {
+			"opcode": move_items[i].childNodes[1].childNodes[0].innerHTML,
+			"arg": null
+		};
+		if (move_items[i].childNodes[1].childNodes.length === 2) {
+			action.arg = move_items[i].childNodes[1].childNodes[1].value;
 		}
-		else {
-			let action = {"opcode": move_items[i].childNodes[1].nodeValue.trim(), "arg": null};
-			move_object.push(action);
-		}
+		move_object.push(action);
 	}
 
 	return move_object;
 }
 
+function loadProgram(object) {
+	const token = document.getElementById("token").value.trim();
+
+	if (token == "") {
+		const message = "Please input your token!"
+		alertFunction(message);
+		return
+	}
+
+	const my_object = {
+		token: token,
+	}
+
+	const stringify_object = JSON.stringify(my_object)
+
+	$.ajax({
+		type: "POST",
+		url: "/api/load_program",
+		data: stringify_object,
+		dataType: "json",
+		contentType: 'application/json',
+		processData: false,
+		success: function (data) {
+			let text = "";
+			data.forEach(function(code){
+				if (text !== "") {
+					text += "\n";
+				}
+				text += code.opcode;
+				if (code.argument) {
+					text += " " + code.argument;
+				}
+			});
+			document.getElementById("text_mode_box").value = text;
+			document.getElementById("text_mode_box").dispatchEvent(new Event("input"));
+			updateProgramList();
+		},
+		error: function (data) {
+			let error = "An Unexpected Error Occurred";
+			if (data.error) { error = data.error; }
+			if (data.responseJSON.error) {error = data.responseJSON.error; }
+			alertFunction(error);
+		}
+	});
+}
+
 function submitActions(object) {
-	var move_object = getMoves();
+	let move_object = getMoves();
 
 	if (useTextMode) {
 		move_object = assemble();
-		if (move_object == null) {
+		if (move_object === null) {
 			return;
 		}
 	}
@@ -105,17 +192,15 @@ function submitActions(object) {
 		return
 	}
 	
-	const token = document.getElementById("token").value;
+	const token = document.getElementById("token").value.trim();
 	
-	if (token == "") {
-		var message = "Please input your token!"
-		alertFunction(message);
+	if (token === "") {
+		alertFunction("Please input your token!");
 		return
 	}
 	
-	if (move_object.length == 0) {
-		var message = "Please add some instructions before submitting!"
-		alertFunction(message);
+	if (move_object.length === 0) {
+		alertFunction("Please add some instructions before submitting!");
 		return
 	}
 
@@ -148,13 +233,15 @@ function closeProgramList() {
 
 
 function toggleTextMode() {
-
 	if (useTextMode) {
 		$("#program-list").show();
 		$("#text_mode_entry").hide();
 		$("#content").show();
 		$("#text_mode_btn").html("Use Text Mode");
 		useTextMode = false;
+		if (!updateProgramList()) {
+			toggleTextMode();
+		}
 	}
 	else {
 		$("#program-list").hide();
@@ -162,7 +249,11 @@ function toggleTextMode() {
 		$("#content").hide();
 		$("#text_mode_btn").html("Use List Mode");
 		useTextMode = true;
+		convertToTextProgram();
+		document.getElementById("text_mode_box").dispatchEvent(new Event("input"));
 	}
+
+	localStorage.setItem("editMode", useTextMode ? "1" : "0");
 }
 
 function waitThenRemove(seconds,element) {
@@ -172,9 +263,9 @@ function waitThenRemove(seconds,element) {
 }
 
 function errorFunction(data) {
-	var alertPlaceholder = document.getElementById('alert-container')
-	var wrapper = document.createElement('div')
-	var message = "Your submission failed!";
+	const alertPlaceholder = document.getElementById('alert-container')
+	const wrapper = document.createElement('div')
+	let message = "Your submission failed!";
 
 
 	if (data !== undefined && data.responseJSON !== undefined && "error" in data.responseJSON) {
@@ -184,12 +275,12 @@ function errorFunction(data) {
 	wrapper.innerHTML = '<div class="alert alert-danger alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
 	alertPlaceholder.append(wrapper)
 	waitThenRemove(4,wrapper);
-};
+}
 
 function successFunction(data) {
-	var alertPlaceholder = document.getElementById('alert-container')
-	var wrapper = document.createElement('div')
-	var message = "Your submission succeeded!"
+	const alertPlaceholder = document.getElementById('alert-container')
+	const wrapper = document.createElement('div')
+	let message = "Your submission succeeded!"
 
 	if (data !== undefined && data.programs_remaining !== undefined) {
 		message = message + ' You have ' + data.programs_remaining + " submissions remaining";
@@ -205,19 +296,19 @@ function successFunction(data) {
 }
 
 function alertFunction(message) {
-	var alertPlaceholder = document.getElementById('alert-container')
-	var wrapper = document.createElement('div')
+	const alertPlaceholder = document.getElementById('alert-container')
+	const wrapper = document.createElement('div')
 	wrapper.innerHTML = '<div class="alert alert-danger alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
 	alertPlaceholder.append(wrapper)
 	waitThenRemove(4,wrapper);
 }
 
 function submitTest(opponent) {
-	var move_object = getMoves();
+	let move_object = getMoves();
 
 	if (useTextMode) {
 		move_object = assemble();
-		if (move_object == null) {
+		if (move_object === null) {
 			return;
 		}
 	}
@@ -232,14 +323,13 @@ function submitTest(opponent) {
 		return
 	}
 
-	var test_program = {};
+	let test_program = {};
 
 	switch (opponent) {
 	case 'last':
-		const token = document.getElementById("token").value;
+		const token = document.getElementById("token").value.trim();
 		if (token == "") {
-			var message = "Please input your token!"
-			alertFunction(message);
+			alertFunction("Please input your token!");
 			return
 		}
 		test_program.player_token = token;
@@ -281,47 +371,46 @@ function submitTest(opponent) {
 function showTestResults(data) {
 	const header = $( "<h4> PROGRAM // TRACE </h4>" );
 
-	var result_string = "tied";
+	let result_string = "tied";
 	if (data.winner == 1) {
 		result_string = "won";
-	}
-	else if (data.winner == 2) {
+	} else if (data.winner == 2) {
 		result_string = "lost";
 	}
 
-
 	const summary = $( "<div id='test-summary'>Your program <b>" + result_string + "</b> against the opponent after <b>" + data.journal.length + " cycle(s)</b>. Your program was inserted at memory address " + data.program1.start_ip + " and the opponent was inserted at " + data.program2.start_ip + "</div>" );
-
 	const table = $('<div>').addClass('test-results');
 	const mem = [];
 
-	for (var i = 0; i < 256; i++) {
-		mem[i] = { contents: null,
-				   updated: false,
-				   owner: 0 };
+	for (let i = 0; i < 256; i++) {
+		mem[i] = {
+			contents: null,
+			updated: false,
+			owner: 0
+		};
 	}
 
-	for (var i = 0 ; i < data.program1.code.length ; i++) {
+	for (let i = 0 ; i < data.program1.code.length ; i++) {
 		mem[data.program1.code[i].addr] = {
 			contents: 'code',
 			owner: 1,
 		};
 	}
 
-	for (var i = 0 ; i < data.program2.code.length ; i++) {
+	for (let i = 0 ; i < data.program2.code.length ; i++) {
 		mem[data.program2.code[i].addr] = {
 			contents: 'code',
 			owner: 2,
 		};
 	}
 
-	for (var i = 0 ; i < data.journal.length ; i++ ) {
-		var je = data.journal[i];
+	for (let i = 0 ; i < data.journal.length ; i++ ) {
+		const je = data.journal[i];
 
 		// update mem
 		if ("writes" in je) {
-			for (var wi = 0 ; wi < je.writes.length; wi++) {
-				var w = je.writes[wi]
+			for (let wi = 0 ; wi < je.writes.length; wi++) {
+				const w = je.writes[wi]
 				
 				mem[w.addr].owner = je.program;
 				mem[w.addr].updated = true;
@@ -348,13 +437,11 @@ function showTestResults(data) {
 			if (je.opcode == null) {
 				je.opcode = "NULL";
 			}
-			var journal_entry_string = '<div class="journal_entry"><div class="journal_entry_code">PC:' + je.old_ip + ' ' + je.opcode;
+			let journal_entry_string = '<div class="journal_entry"><div class="journal_entry_code">PC:' + je.old_ip + ' ' + je.opcode;
 
 			if (je.arg != null) {
 				journal_entry_string += ' ' + je.arg;
 			}
-
-
 			journal_entry_string += '</div><div class="journal_entry_stack"> stack: ' + je.new_stack + '</div>';
 
 			// SCAN
@@ -363,14 +450,13 @@ function showTestResults(data) {
 			}
 
 			if ("writes" in je && je.read_addr_first != null) {
-				for (var wi = 0 ; wi < je.writes.length; wi++) {
-					var w = je.writes[wi]
+				for (let wi = 0 ; wi < je.writes.length; wi++) {
+					const w = je.writes[wi]
 					journal_entry_string += '<div class="journal_entry_extra">Copied memory from ' + je.read_addr_first + ' to ' + w.addr + "</div>";
 				}
-			}
-			else if ("writes" in je) {
-				for (var wi = 0 ; wi < je.writes.length; wi++) {
-					var w = je.writes[wi]
+			} else if ("writes" in je) {
+				for (let wi = 0 ; wi < je.writes.length; wi++) {
+					const w = je.writes[wi]
 				
 					if ("opcode" in w) {
 						journal_entry_string += '<div class="journal_entry_extra">Wrote to memory at ' + w.addr + "</div>";
@@ -383,7 +469,7 @@ function showTestResults(data) {
 
 
 			if (je.status != 0) {
-				var status_label = "";
+				let status_label = "";
 				switch (je.status) {
 				case 0:
 					status_label = "running";
@@ -418,14 +504,12 @@ function showTestResults(data) {
 
 				journal_entry_string += '<div class="journal_entry_died">' + status_label + '</div>';
 			}
-
 			journal_entry_string += '</div>'
-
 			table.append($(journal_entry_string));
 		}
 	}
 
-	var haveCanvas = true;
+	let haveCanvas = true;
 	// draw the results
 	const canvas = document.createElement("canvas");
 	const canvas_container = $('			<ul id="legend">				<li><div class="blue-square"></div>your program</li>				<li><div class="red-square"></div>opponent</li>				<li><div class="green-square"></div>memory cells altered</li>			</ul>');
@@ -435,19 +519,18 @@ function showTestResults(data) {
 		canvas.width = canvas.height = SQUARE_SIZE * 16;
 		const ctx = canvas.getContext("2d");
 		let idx = 0;
-		for (var y = 0 ; y < 16 ; y++) {
-			for (var x = 0; x < 16; x++) {
-				var m = mem[idx++];
-				var sx = x * (SQUARE_SIZE) + 1;
-				var sy = y * (SQUARE_SIZE) + 1;
-				var sz = (SQUARE_SIZE) * .9;
+		for (let y = 0 ; y < 16 ; y++) {
+			for (let x = 0; x < 16; x++) {
+				const m = mem[idx++];
+				const sx = x * (SQUARE_SIZE) + 1;
+				const sy = y * (SQUARE_SIZE) + 1;
+				const sz = (SQUARE_SIZE) * .9;
 
 				if (m.owner == 0) {
 					ctx.fillStyle = NO_COLOR;
 					ctx.fillRect(sx, sy, sz, sz);
-				}
-				else {
-					var col = P1_COLOR;
+				} else {
+					let col = P1_COLOR;
 					if (m.owner == 2) {
 						col = P2_COLOR;
 					}
@@ -516,66 +599,129 @@ const INSTRUCTIONS = {
 };
 
 function assemble() {
-	var text = document.getElementById("text_mode_box").value;
-	var program = [];
+	let text = document.getElementById("text_mode_box").value;
+	let program = [];
+	const lines = text.split("\n");
 
-	var lines = text.split("\n");
+	for (let i = 0 ; i < lines.length ; i++) {
+		let line = lines[i];
+		const blank_match = line.match(/(^\s*$|^#)/);
+		const code_arg_match = line.match(/(^\w+)\s+(-*[0-9]+)/);
+		const code_match = line.match(/(^\w+)/);
 
-	for (var i = 0 ; i < lines.length ; i++) {
-		var line = lines[i];
-
-		var blank_match = line.match(/(^\s*$|^#)/);
-		var code_arg_match = line.match(/(^\w+)\s+(-*[0-9]+)/);
-		var code_match = line.match(/(^\w+)/);
-		
-		
 		if (blank_match) {
 			// do nothing			
-		}
-		else if (code_arg_match) {
-			var opcode = code_arg_match[1].toUpperCase();
-			var arg = code_arg_match[2];
-			var n_arg = parseInt(arg);
+		} else if (code_arg_match) {
+			const opcode = code_arg_match[1].toUpperCase();
+			const arg = code_arg_match[2];
+			const n_arg = parseInt(arg);
 
-			if (arg > 255 || arg < -255) {
+			if (n_arg > 255 || n_arg < -255) {
 				alertFunction("argument: " + opcode + " out of range at line " + (i+1));
 				return null;
 			}
-			
 			if (opcode in INSTRUCTIONS) {
 				if (!INSTRUCTIONS[opcode]) {
 					alertFunction("instruction: " + opcode + " does not take argument at line " + (i+1));
-					return
+					return null;
 				}
-
 				program.push({"opcode": opcode, "arg" : arg });
-			}
-			else {
+			} else {
 				alertFunction("Unknown instruction: " + opcode + " at line " + (i+1));
 				return null;
 			}
-		}
-		else if (code_match) {
-			var opcode = code_match[0].toUpperCase();
+		} else if (code_match) {
+			const opcode = code_match[0].toUpperCase();
 			if (opcode in INSTRUCTIONS) {
-
 				if (INSTRUCTIONS[opcode]) {
 					alertFunction("instruction: " + opcode + "takes an argument at line " + (i+1));
-					return
+					return null;
 				}
-				
-				program.push({"opcode": opcode, "arg" : null });
-			}
-			else {
+				program.push({"opcode": opcode, "arg" : null});
+			} else {
 				alertFunction("Unknown instruction: " + opcode + " at line " + (i+1));
 				return null;
 			}
-		}
-		else {
+		} else {
 			alertFunction("syntax error at line " + (i+1));
-			return;
+			return null;
 		}
 	}
-
 	return program;
 }
+
+function convertToTextProgram() {
+	const program = getMoves();
+	let text = "";
+	program.forEach(function(code){
+		if (text !== "") {
+			text += "\n";
+		}
+		text += code.opcode;
+		if (code.arg) {
+			text += " " + code.arg;
+		}
+	});
+	document.getElementById("text_mode_box").value = text;
+	document.getElementById("text_mode_box").dispatchEvent(new Event("input"));
+}
+
+function updateProgramList() {
+	document.getElementById("content").innerHTML = "";
+	const program = assemble();
+	if (program === null) {
+		alertFunction("There is a syntax error in your code, unable to convert it");
+		return null;
+	}
+	program.forEach(function(code) {
+		if (!addAction(code)) {
+			return null;
+		}
+	});
+	return true;
+}
+
+document.getElementById("text_mode_box").addEventListener("input", function () {
+	const code = this.value;
+	this.style.height = "auto";
+	this.style.height = 5 + this.scrollHeight + "px";
+	localStorage.setItem("text_mode_box", code);
+});
+
+["change"].forEach(function(e){
+	document.getElementById("token").addEventListener(e, function(){
+		const val = this.value.trim();
+		if (val !== "") {
+			localStorage.setItem("token", val);
+		}
+	});
+});
+
+// Load code from session storage on page load
+document.addEventListener("DOMContentLoaded", function () {
+	const savedCode = localStorage.getItem("text_mode_box");
+	const editMode = localStorage.getItem("editMode");
+	const token = localStorage.getItem("token");
+
+	// Update Token if it isn't set
+	if (
+		document.getElementById("token").value.trim() === ""
+		&& token
+		&& token.trim() !== ""
+	) {
+		document.getElementById("token").value = token;
+		document.getElementById("token").dispatchEvent(new Event("change"));
+	}
+
+	// Load Program from Storage
+	useTextMode = !(editMode === "1"); // need opposite so toggle works
+	toggleTextMode();
+
+	if (savedCode) {
+		document.getElementById("sys-login").scrollIntoView();
+
+		const codeInput = document.getElementById("text_mode_box");
+		codeInput.value = savedCode;
+		updateProgramList();
+	}
+});

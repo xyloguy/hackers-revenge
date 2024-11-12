@@ -12,10 +12,10 @@ LICENSE MIT
 ### Steps to Get started
 
 1. To start the server: `make up`
-1. Go to `http://localhost/admin/token` and click the generate token (user: `beta`, pass: `yolo`) <--- these are set in the `htpasswd/token.conf` you can generate your own credentials by opening `htpasswd_gen.html` in a web browser.
-1. Go to `http://localhost/` to the instructions page. Input your token, create/submit your program.
-1. Go to `http://localhost/admin/replay` to see random battles of programs. (user: `replay`, pass: `yolo`)
-1. Go to `http://localhost/admin/leaderboard` to see the top scores of programs. (user: `leaderboard`, pass: `yolo`)
+2. Go to `http://localhost/admin/token` and click the generate token (user: `beta`, pass: `yolo`) <--- these are set in the `htpasswd/token.conf` you can generate your own credentials by opening `http://localhost/htpasswd_gen.html` in a web browser.
+3. Go to `http://localhost/` to the instructions page. Input your token, create/submit your program.
+4. Go to `http://localhost/admin/replay` to see random battles of programs. (user: `replay`, pass: `yolo`)
+5. Go to `http://localhost/admin/leaderboard` to see the top scores of programs. (user: `leaderboard`, pass: `yolo`)
 
 
 ### To Reset the system

@@ -52,6 +52,9 @@ server {
         location /api/program {
             proxy_pass $SERVER_HOST/program;
         }
+        location /api/load_program {
+            proxy_pass $SERVER_HOST/load_program;
+        }
         location /api/test_round {
             proxy_pass $SERVER_HOST/test_round;
         }

@@ -16,6 +16,18 @@ class ProgramController < ApplicationController
     end
   end
 
+  def load_program
+    player = ::Player.find_by(:token => params[:token])
+    if player.present?
+      program = player.last_program
+      if program.present?
+        render :json => program.instructions.as_json(:only => [:line_number, :opcode, :argument])
+        return
+      end
+    end
+    render :json => { :error => "Error loading previous submission" }, :status => :unprocessable_entity
+  end
+
 private
 
   def code

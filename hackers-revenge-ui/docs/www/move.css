@@ -192,6 +192,23 @@ li .green-square {
 	background-size: contain;
 }
 
+#content li  div.code{
+	display: block;
+	text-align: left;
+	width: 175px;
+}
+
+#content li div.opcode {
+	width:95px;
+	text-align: left;
+	display: inline-block;
+}
+
+li input.arg {
+	max-width:80px;
+	display: inline-block;
+}
+
 .move-btn {
 	width: 37px;
     height: 38px;
@@ -235,6 +252,16 @@ div#text_mode_entry textarea {
 	font-family: monospace;
 	font-size: 18px;
 	text-transform: uppercase;
+	width: 100%;
+	height: auto; /* Changed to auto */
+	min-height: 200px; /* Set a minimum height */
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	margin-bottom: 20px;
+	/*overflow: hidden; !* Hide overflow *!*/
+	/*resize: none; !* Disable manual resizing *!*/
 }
 
 .btn-lg {
