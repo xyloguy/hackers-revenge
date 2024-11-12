@@ -514,10 +514,34 @@ function Replayer(replay, next) {
         ctx.font = "" + (.25 * SQUARE_SIZE) + "px 'Press Start 2P'";
         ctx.fillText(status_label.toUpperCase(), SQUARE_SIZE * 5, SQUARE_SIZE*.325);
         ctx.restore();
+
+        for (var p = 0 ; p < 2 ; p++) {
+            ctx.save();
+            ctx.translate((CANVAS_SIZE/2) * p, 0);
+            ctx.clearRect(0, 0, CANVAS_SIZE, SQUARE_SIZE);
+
+            if (p == 0) {
+                ctx.fillStyle = P1_COLOR;
+            } else {
+                ctx.fillStyle = P2_COLOR;
+            }
+
+            var player = replayer._replay.program1;
+            if (p == 1) {
+                player = replayer._replay.program2;
+            }
+
+            // Player Names
+            ctx.font = "bold  " + (.5 * SQUARE_SIZE) + 'px verdana, arial, sans-serif';
+            ctx.fillText(player.player_name.toUpperCase(), 0, SQUARE_SIZE*.25);
+            ctx.restore();
+        }
     };
 
     replayer.draw_mem = function() {
         var ctx = canvas_fg.getContext("2d");
+        ctx.fillStyle = "#010101";
+        ctx.fillRect(-SQUARE_SIZE * 2, -SQUARE_SIZE * 2, CANVAS_SIZE * 2, CANVAS_SIZE * 2);
         var i = 0;
         for (var y = 0 ; y < 16 ; y++) {
             for (var x = 0 ; x < 16 ; x++) {
