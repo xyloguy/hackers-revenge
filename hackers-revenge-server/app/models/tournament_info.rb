@@ -7,26 +7,29 @@ class TournamentInfo < ApplicationRecord
   end
 
   def self.instance
+    find_by(:id => 1) || create!(:id => 1, :matches => 0, :end_at => 1.year.from_now)
+  end
+
+  def end_time
     begin
       env_time_defined = ENV.fetch('TOURNAMENT_END_TIME', false)
+      env_time_defined = "2025-01-06 13:45:00 -0700"
       if env_time_defined != false
-        zone = ActiveSupport::TimeZone["Mountain Standard Time (US & Canada)"]
-        end_time = zone.parse(env_time_defined)
+        ::Time.parse(env_time_defined)
       else
         raise "Time Not Defined, falling back"
       end
     rescue
-      end_time = 1.year.from_now
+      end_at
     end
-    find_by(:id => 1) || create!(:id => 1, :matches => 0, :end_at => end_time)
   end
 
   def ended?
-    ::Time.current > end_at
+    ::Time.current > end_time
   end
 
   def remaining_seconds
-    [0, (end_at - ::Time.current).to_i].max
+    (end_time - ::Time.current).to_i.round
   end
 
   def running?

@@ -19,7 +19,6 @@ class Instruction < ApplicationRecord
     "JUMPG" => true,
     "HCF" => false,
     "SCAN" => true,
-    "USCAN" => true,
     "COPY" => true,
     "ICOPY" => true,
     "SETARG" => true,

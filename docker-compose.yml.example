@@ -4,8 +4,9 @@ services:
     environment:
       RAILS_ENV: development
       MAX_PROGRAMS_PER_PLAYER: 12
-      UNLIMITED_FIRE_SPREAD: 1
-      TOURNAMENT_END_TIME: "2024-11-16 07:59:59"
+      UNLIMITED_FIRE_SPREAD: 0
+      TOURNAMENT_END_TIME: "2025-12-31 23:59:59"
+      TIME_ZONE: "America/Denver"
       DB_USER: root
       DB_NAME: app
       DB_PASSWORD: password

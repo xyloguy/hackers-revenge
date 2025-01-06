@@ -592,10 +592,6 @@ function Replayer(replay, next) {
 					op = "HALT/CATCH-FIRE";
 				}
 
-				if (op == "USCAN") {
-					op = "SCAN";
-				}
-
 				if (addr == pc) {
 					ctx.font = "bold " + (.5 * SQUARE_SIZE) + "px verdana, arial, sans-serif";
 				} else {

@@ -608,31 +608,17 @@ function encName(name) {
 }
 
 function populateLB(data) {
-    var ending= (data.remaining_seconds < (10 * 60) && data.remaining_seconds > 1);
+    var ending= (data.remaining_seconds <= 3600 && data.remaining_seconds >= 1);
     var total = 0;
-    var elements = $.map(data.leaders,
+    var elements = $.map(data.leaders.slice(0,10),
         function(val, i) {
-
-            var status = "won";
-            if (val.winner == 0) {
-                status = "tied";
-            } else if (val.winner == -1) {
-                status = "lost";
-            }
-
-            var time = new Date(val.last_battle_timestamp).toLocaleTimeString();
-            var battle = status + " against '" + (ending ? "???????" : val.opponent_name) + "' at " + time;
             var stats = "wins: " + val.wins + " ties: " + val.ties + " losses: " + val.losses;
-            var name = val.name;
-            if (!name.match(/^HCF/)) {
-                name = ending ? "???????????????" : val.name;
-            }
+            var name = ending ? "???????????????" : val.name;
             total += 1;
-
             return "<tr id=\"" + encName(name) + "\"><th>" + (i+1) + "</th><td>"+name+"<br/><div class='tally'>"+stats+"</div></td><td>"+val.score*100+"</td>";
         });
 
-    $("#top").html("top " + String(total));
+    $("#total").html(total);
     $( "#lb-body" ).html(elements);
 }
 

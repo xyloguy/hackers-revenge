@@ -41,7 +41,7 @@ class Match
     players = ::Player.where(:id => player_ids).order(:score => :desc).to_a
     ::Player.transaction do
       players.each do |player|
-        player.update!(:place => (place > 10 ? nil : place))
+        player.update!(:place => (place > 20 ? nil : place))
         place += 1
       end
     end

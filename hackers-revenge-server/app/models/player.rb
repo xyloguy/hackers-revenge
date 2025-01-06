@@ -19,7 +19,7 @@ class Player < ApplicationRecord
   before_validation :adjust_score
 
   scope :contenders, lambda { joins(:last_program).order("programs.created_at DESC") }
-  scope :top_ten, lambda { where.not(:place => nil).order(:place).limit(10) }
+  scope :top_ten, lambda { where.not(:place => nil).order(:place).limit(20) }
 
   def self.new_random
     new(:token => random_token, :name => random_name)

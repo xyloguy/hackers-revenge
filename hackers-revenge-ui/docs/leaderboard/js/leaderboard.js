@@ -1,9 +1,7 @@
-var ending = false;
-
+var ending = true;
 
 function populateLB(data) {
-
-	ending = (data.remaining_seconds < (10 * 60) && data.remaining_seconds > 1);
+	ending = (data.remaining_seconds <= 3600 && data.remaining_seconds >= 1);
 	var elements = $.map(data.leaders,
 						 function(val, i) {
 
@@ -17,18 +15,14 @@ function populateLB(data) {
 							 var time = new Date(val.last_battle_timestamp).toLocaleTimeString();
 							 var battle = status + " against '" + (ending ? "???????" : val.opponent_name) + "' at " + time;
 							 var stats = "wins: " + val.wins + " ties: " + val.ties + " losses: " + val.losses;
-							 var name = val.name;
-							 if (!name.match(/^HCF/)) {
-								 name = ending ? "???????????????" : val.name;
-							 }
-
+							 var name = ending ? "???????????????" : val.name;
 							 return "<tr><th>" + (i+1) + "</th><td>"+name+"<br/><div class='tally'>"+stats+"</div><div class='status'>" + battle + "</div></td><td>"+val.score*100+"</td>";
 						 });
 	$( "#lb-body" ).html(elements);
+	$("#total").html(data.leaders.length);
 }
 
 function populateContenders(data) {
-
 	var elements = $.map(data,
 						 function(val, i) {
 							 if (val.last_battle_timestamp === null) {
@@ -46,7 +40,7 @@ function populateContenders(data) {
 
 
 function populateStatus(data) {
-
+	ending = (data.remaining_seconds <= 3600 && data.remaining_seconds >= 1);
 	if ("remaining_seconds" in data) {
 		rem = data.remaining_seconds;
 
@@ -111,7 +105,6 @@ function getContenders() {
 	});
 }
 
-
 function getStatus() {
 		$.ajax({
 		cache: false,
@@ -123,13 +116,12 @@ function getStatus() {
 	});
 }
 
+function reload() {
+	ending = true;
+	getLB();
+	getStatus();
+	getContenders();
+}
 
-
-setInterval(getLB,20 * 1000);
-setInterval(getContenders,10 * 1000);
-setInterval(getStatus, 5 * 1000);
-
-getLB();
-getContenders();
-getStatus();
-
+setInterval(reload, 20 * 1000);
+reload();

@@ -1,4 +1,5 @@
-limit_req_zone $binary_remote_addr zone=api_limit:10m rate=1r/s;
+limit_req_zone $binary_remote_addr zone=api:10m rate=10r/s;
+limit_req_zone $binary_remote_addr zone=leaderboard:50m rate=50r/s;
 
 server {
     listen 80 default_server;
@@ -45,27 +46,32 @@ server {
 
     # API endpoints for public facing areas
     location /api/ {
-        limit_req zone=api_limit;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 
         location /api/program {
+            limit_req zone=api;
             proxy_pass $SERVER_HOST/program;
         }
         location /api/load_program {
+            limit_req zone=api;
             proxy_pass $SERVER_HOST/load_program;
         }
         location /api/test_round {
+            limit_req zone=api;
             proxy_pass $SERVER_HOST/test_round;
         }
 
         location /api/leaderboard {
+            limit_req zone=leaderboard burst=10;
             proxy_pass $SERVER_HOST/leaderboard;
         }
         location /api/contenders {
+            limit_req zone=leaderboard burst=10;
             proxy_pass $SERVER_HOST/contenders;
         }
         location /api/status {
+            limit_req zone=leaderboard burst=10;
             proxy_pass $SERVER_HOST/status;
         }
     }

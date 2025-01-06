@@ -35,7 +35,7 @@ module HackersRevengeServer
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # (Note this dates are still stored in UTC in the DB.)
-    config.time_zone = "Mountain Time (US & Canada)"
+    config.time_zone = ENV.fetch('TIME_ZONE', "America/Denver")
 
     # Custom error pages so we can respond with proper json response (in prod).
     config.exceptions_app = routes

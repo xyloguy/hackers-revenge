@@ -590,7 +590,6 @@ const INSTRUCTIONS = {
 	DECSKIP: true,
 	HCF: false,
 	SCAN: true,
-	USCAN: true,
 	COPY: true,
 	ICOPY: true,
 	SETARG: true,
