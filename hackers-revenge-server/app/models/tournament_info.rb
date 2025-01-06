@@ -13,7 +13,6 @@ class TournamentInfo < ApplicationRecord
   def end_time
     begin
       env_time_defined = ENV.fetch('TOURNAMENT_END_TIME', false)
-      env_time_defined = "2025-01-06 13:45:00 -0700"
       if env_time_defined != false
         ::Time.parse(env_time_defined)
       else
