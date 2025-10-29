@@ -77,6 +77,7 @@ class RunningProgram
     when "SCAN" then run_scan
     when "COPY" then run_copy
     when "ICOPY" then run_copy(:indirect => true)
+#     when "COPY2" then run_copy(:copy2 => 1)
     when "SETARG" then run_setarg
     when "PUSHARG" then run_pusharg
     when "INCARG" then run_incarg
@@ -162,43 +163,59 @@ private
     inc_ip
   end
 
-  def run_copy(indirect: false)
+  def run_copy(indirect: false, copy2: 0)
     return ::Cycle::STATUS_DIED_STACK_UNDERFLOW if stack.empty?
-    src_pos = (ip + arg) % 256
-    dst_pos = (ip + stack.pop) % 256
-    dst_pos = (dst_pos + memory[dst_pos]&.argument.to_i) % 256 if indirect
-    explosion = memory[src_pos]&.hcf? && memory[dst_pos]&.hcf?
-    memory[dst_pos] = memory[src_pos]
+    stack_val = stack.pop
+    writes ||= []
+    i = 0
+    while i <= copy2
+      src_pos = (ip + i + arg) % 256
+      dst_pos = (ip + i + stack_val) % 256
+      dst_pos = (dst_pos + memory[dst_pos]&.argument.to_i) % 256 if indirect
+      explosion = memory[src_pos]&.hcf? && memory[dst_pos]&.hcf?
+      memory[dst_pos] = memory[src_pos]
 
-    @read_addr_first = @read_addr_last = src_pos
-    wrote = { :addr => dst_pos }
-    unless memory[dst_pos].nil?
-      wrote[:opcode] = memory[dst_pos].opcode
-      wrote[:argument] = memory[dst_pos].argument
-    end
-    @wrotes = [wrote]
+      @read_addr_first = @read_addr_last = src_pos
+      wrote = { :addr => dst_pos }
+      unless memory[dst_pos].nil?
+        wrote[:opcode] = memory[dst_pos].opcode
+        wrote[:argument] = memory[dst_pos].argument
+      end
+      writes.push(wrote)
+      # @wrotes = [wrote]
 
-    if explosion
-      dst_pos_before = (dst_pos + 255) % 256
-      # spread fire to all neighboring fire
-      while memory[dst_pos_before]&.hcf? && Integer(ENV.fetch('UNLIMITED_FIRE_SPREAD', 0)) == 1
-        dst_pos_before += 255
-        dst_pos_before %= 256
+      if explosion
+        dst_pos_before = (dst_pos + 255) % 256
+        # spread fire to all neighboring fire
+        while memory[dst_pos_before]&.hcf? && Integer(ENV.fetch('UNLIMITED_FIRE_SPREAD', 0)) == 1
+          dst_pos_before += 255
+          dst_pos_before %= 256
+        end
+
+        dst_pos_after = (dst_pos + 1) % 256
+        # spread fire to all neighboring fire
+        while memory[dst_pos_after]&.hcf? && Integer(ENV.fetch('UNLIMITED_FIRE_SPREAD', 0)) == 1
+          dst_pos_after += 1
+          dst_pos_after %= 256
+        end
+        memory[dst_pos_before] = memory[dst_pos_after] = memory[dst_pos]
+
+        explosion1 = wrote.dup
+        explosion1[:addr] = dst_pos_before
+        writes.push(explosion1)
+
+        explosion2 = wrote.dup
+        explosion2[:addr] = dst_pos_after
+        writes.push(explosion2)
+        # @wrotes = [wrote.dup, wrote.dup, wrote.dup]
+        # @wrotes[0][:addr] = dst_pos_before
+        # @wrotes[2][:addr] = dst_pos_after
       end
 
-      dst_pos_after = (dst_pos + 1) % 256
-      # spread fire to all neighboring fire
-      while memory[dst_pos_after]&.hcf? && Integer(ENV.fetch('UNLIMITED_FIRE_SPREAD', 0)) == 1
-        dst_pos_after += 1
-        dst_pos_after %= 256
-      end
-      memory[dst_pos_before] = memory[dst_pos_after] = memory[dst_pos]
-
-      @wrotes = [wrote.dup, wrote.dup, wrote.dup]
-      @wrotes[0][:addr] = dst_pos_before
-      @wrotes[2][:addr] = dst_pos_after
+      i += 1
     end
 
+    @wrotes = writes
     inc_ip
   end
 

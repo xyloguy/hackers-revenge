@@ -7,8 +7,11 @@ class RunMatchWorker
   sidekiq_options :queue => "default", :retry => false
 
   def self.running
-    workers = ::Sidekiq::Workers.new
-    workers.count { |_pid, _tid, work| work.dig("payload", "class") == to_s }
+    self.workers.size
+  end
+
+  def self.workers
+    ::Sidekiq::Workers.new
   end
 
   def self.queued

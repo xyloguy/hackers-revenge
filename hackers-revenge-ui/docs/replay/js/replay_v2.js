@@ -657,6 +657,7 @@ document.addEventListener('run_queue_empty', function (ev) {
         dataType: 'json',
         url: '/admin/api/leaderboard',
         success: function (data) {
+            data.leaders = data.leaders.slice(0, 10)
             populateLB(data);
 
             var ajaxes = [];

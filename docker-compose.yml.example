@@ -1,22 +1,49 @@
 name: hackers-revenge
 services:
+
+
+# Ruby on Rails version of the server
+#  server:
+#    environment:
+#      RAILS_ENV: development
+#      MAX_PROGRAMS_PER_PLAYER: 12
+#      UNLIMITED_FIRE_SPREAD: 0
+#      TOURNAMENT_END_TIME: "2025-02-06 13:45:00 -0700"
+#      DB_USER: root
+#      DB_NAME: app
+#      DB_PASSWORD: password
+#      DB_HOST: db
+#    image: "ruby:3.3"
+#    volumes:
+#      - ./hackers-revenge-server/:/app
+#      - ./hackers-revenge-server/vendor:/usr/local/bundle
+#    working_dir: /app
+#    command: sh run.sh
+#    healthcheck:
+#      test: curl -f http://server:3000/healthy
+#      interval: 10s
+#      retries: 5
+#      start_period: 30s
+#      timeout: 2s
+#    depends_on:
+#      db:
+#        condition: service_healthy
+#      redis:
+#        condition: service_healthy
+#    restart: on-failure
+
+
+# GO version of the server
   server:
+    build:
+      context: ./hackers-revenge-go
+      dockerfile: Dockerfile
     environment:
-      RAILS_ENV: development
+      DATABASE_URL: "root:password@tcp(db:3306)/app?charset=utf8mb4&parseTime=True&loc=Local"
+      REDIS_URL: "redis:6379"
+      PORT: "3000"
       MAX_PROGRAMS_PER_PLAYER: 12
       UNLIMITED_FIRE_SPREAD: 0
-      TOURNAMENT_END_TIME: "2025-12-31 23:59:59"
-      TIME_ZONE: "America/Denver"
-      DB_USER: root
-      DB_NAME: app
-      DB_PASSWORD: password
-      DB_HOST: db
-    image: "ruby:3.3"
-    volumes:
-      - ./hackers-revenge-server/:/app
-      - ./hackers-revenge-server/vendor:/usr/local/bundle
-    working_dir: /app
-    command: sh run.sh
     healthcheck:
       test: curl -f http://server:3000/healthy
       interval: 10s
@@ -29,6 +56,8 @@ services:
       redis:
         condition: service_healthy
     restart: on-failure
+
+
   db:
     image: mysql:8
     restart: always
@@ -44,6 +73,8 @@ services:
       start_period: 30s
     volumes:
       - mysql_data:/var/lib/mysql
+
+
   redis:
     image: "redis:alpine"
     healthcheck:
@@ -53,6 +84,8 @@ services:
       timeout: 1s
       retries: 3
     restart: on-failure
+
+
   ui:
     image: "nginx:latest"
     volumes:
@@ -77,11 +110,14 @@ services:
       retries: 3
       timeout: 2s
     restart: always
+
+
   certbot:
     image: certbot/certbot:latest
     volumes:
       - ./certbot/www/:/var/www/certbot/:rw
       - ./certbot/conf/:/etc/letsencrypt/:rw
+
 
 volumes:
   mysql_data:

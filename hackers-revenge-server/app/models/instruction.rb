@@ -20,6 +20,7 @@ class Instruction < ApplicationRecord
     "HCF" => false,
     "SCAN" => true,
     "COPY" => true,
+#     "COPY2" => true,
     "ICOPY" => true,
     "SETARG" => true,
     "PUSHARG" => false,
